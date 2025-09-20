@@ -2,11 +2,12 @@
 import Link from 'next/link'
 
 export default function Footer() {
+  const name = process.env.NEXT_PUBLIC_NAME
   return (
     <footer className="bg-black text-white px-8 py-12 md:h-120 flex flex-col justify-end gap-20">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 md:gap-12 gap-5">
         <div className='text-center'>
-          <div className='w-[30vw] text-[45px] font-medium min-w-max w-full'>TaxiDown</div>
+          <div className='w-[30vw] text-[45px] font-medium min-w-max w-full'>{name}</div>
           <p className='w-2/3 md:w-full m-auto'>Committed to safe, reliable, and professional transportation services tailored to your needs.</p>
         </div>
         <div className='flex md:justify-end md:w-[50vw] md:gap-30 gap-10 justify-center'> 
