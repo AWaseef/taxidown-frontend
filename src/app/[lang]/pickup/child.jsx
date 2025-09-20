@@ -73,9 +73,9 @@ export default function Child({ visibility, setChildSets, isVisible, setTotal}) 
               key={seat.id}
               className="flex items-center justify-between gap-2"
             >
-              <div className="flex items-center gap-1">
-                <h1 className="text-lg">{seat.seat_type}</h1>
-                <p className="text-sm text-stone-500">€{seat.seat_cost}</p>
+              <div className="flex flex-col">
+                <h1 className="text-lg mr-1">{seat.seat_type}</h1>
+                <p className="text-md text-stone-500 ml-2">+€{seat.seat_cost}</p>
               </div>
               <div className="flex items-center gap-1">
                 <button

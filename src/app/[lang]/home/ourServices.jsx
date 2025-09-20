@@ -2,6 +2,7 @@
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import { Plane, Ship, Landmark, Briefcase, CalendarClock, Car, Accessibility } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const services = [
   {
@@ -99,7 +100,8 @@ const itemVariants = {
   },
 }
 
-export default function OurServices() {
+
+export default function OurServices({lang}) {
   const { ref, inView } = useInView({
     threshold: 0.1,
     triggerOnce: true,
@@ -130,7 +132,7 @@ export default function OurServices() {
           className="flex justify-center flex-wrap gap-6 sm:gap-8 lg:gap-10 w-full -mx-3"
         >
           {services.map((service, index) => (
-            <ServiceCard key={index} service={service} variants={itemVariants} />
+            <ServiceCard key={index} lang={lang} service={service} variants={itemVariants} />
           ))}
         </motion.div>
       </div>
@@ -138,11 +140,18 @@ export default function OurServices() {
   )
 }
 
-function ServiceCard({ service, variants }) {
+function ServiceCard({ service, variants, lang}) {
   const IconComponent = service.icon
+  const router = useRouter();
+
+  const navigate = ()=>{
+    router.push(
+      `/${lang}/pickup?pickup=${''}&destination=${''}&oneway=${service.title === "Wedding Events"? 'false': 'true'}&service=${service.title}`
+    )
+  }
 
   return (
-    <motion.div
+    <motion.button
       variants={variants}
       whileHover={{
         y: -8,
@@ -152,10 +161,10 @@ function ServiceCard({ service, variants }) {
       className={`
         group relative bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-gray-100
         hover:shadow-xl hover:border-gray-200 transition-all duration-300 cursor-pointer
-        focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2
         w-full sm:w-[47%] md:w-[30%] px-3
       `}
-    >
+      onClick={navigate}
+      >
       <motion.div
         className={`
           inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 
@@ -176,6 +185,6 @@ function ServiceCard({ service, variants }) {
       </div>
 
       <div className="absolute inset-0 bg-gradient-to-br from-transparent to-gray-50/50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-    </motion.div>
+    </motion.button>
   )
 }

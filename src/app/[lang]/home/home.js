@@ -15,7 +15,7 @@ export default async function HomePage({params}) {
         <Navbar home={dict.lang.home} contactUs={dict.lang.contactUs} loginTitle={dict.lang.loginTitle} bookingTitle={dict.lang.bookingTitle} logoutTitle={dict.lang.logoutTitle} successLogout={dict.lang.LogoutSuccessful} lang={lang}/>
         <PickupContainer dict={dict} lang={lang} />
         <div id="ourservices">
-            <OurServices />
+            <OurServices lang={lang} />
         </div>
         <GetFleets />
         <div className='flex flex-col gap-13 justify-center items-center py-20 bg-[#f8f8f8]'>
