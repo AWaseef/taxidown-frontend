@@ -5,6 +5,7 @@ import Pick from './pick'
 import { getDictionary } from '../dictionaries'
 import OurServices from './ourServices'
 import DriverProfessionals from './drivers'
+import PickupContainer from './pickupContainer'
 
 export default async function HomePage({params}) {
   const {lang} = await params;
@@ -12,11 +13,10 @@ export default async function HomePage({params}) {
   return (
     <div className=' w-[100vw]'>
         <Navbar home={dict.lang.home} contactUs={dict.lang.contactUs} loginTitle={dict.lang.loginTitle} bookingTitle={dict.lang.bookingTitle} logoutTitle={dict.lang.logoutTitle} successLogout={dict.lang.LogoutSuccessful} lang={lang}/>
-        <div className='w-full md:h-screen h-[650px] bg-[url(/home2.png)] bg-cover relative bg-center flex items-center justify-center md:flex-none'>
-            <Pick pick={dict.lang.pickupTripNow} oneWay={dict.lang.oneWay} perHour={dict.lang.perHour} pickupLocation={dict.lang.pickupLocation} destination={dict.lang.destination} getOffer={dict.lang.getOffer} login={dict.login} signup={dict.signup} pickdict={dict.pick} lang={lang}/>
+        <PickupContainer dict={dict} lang={lang} />
+        <div id="ourservices">
+            <OurServices />
         </div>
-
-        <OurServices />
         <GetFleets />
         <div className='flex flex-col gap-13 justify-center items-center py-20 bg-[#f8f8f8]'>
             <div className="text-center mb-[-15px]">
@@ -42,6 +42,7 @@ export default async function HomePage({params}) {
             content={"All our drivers are professionally trained, courteous, and well-acquainted with the routes to ensure your safety and comfort."}
             />
         </div>
+        
         <Footer />
     </div>
   )

@@ -14,7 +14,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox"
 import { Minus, Plus, User, Baby } from "lucide-react";
 import { redirect, useRouter } from "next/navigation";
-import { Loader2Icon } from "lucide-react";
+import { Loader2Icon, Pin } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import PickupDetailsPage from "./pickup_details";
 import PickupDetails from "./pickup_details";
@@ -319,6 +319,9 @@ export default function PickupFor({
     return () => clearTimeout(timeoutId)
   }, [destinationQuery])
 
+  const wrapperRef = useRef(null);
+  const destinationWrapperRef = useRef(null);
+
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (pickupRef.current && !pickupRef.current.contains(e.target)) {
@@ -326,6 +329,12 @@ export default function PickupFor({
       }
       if (destinationRef.current && !destinationRef.current.contains(e.target)) {
         setShowDestinationResults(false)
+      }
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+        setShowOption(false);
+      }
+      if (destinationWrapperRef.current && !destinationWrapperRef.current.contains(e.target)) {
+        setShowCurrentDest(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside)
@@ -544,6 +553,9 @@ export default function PickupFor({
   useEffect(()=>{
     console.log(childSeats)
   }, [childSeats])
+
+  const [showOption, setShowOption] = useState(false);
+  const [showCurrentDest, setShowCurrentDest] = useState(false);
   
   return (
     <>
@@ -615,12 +627,13 @@ export default function PickupFor({
         </div>
         <div className="flex-1 space-y-4">
           <div ref={pickupRef} className="relative w-full max-w-[95%] mb-0">
-            <div className={`relative ${!validPickup ? "border-red-500" : ""}`}>
+            <div className={`relative mb-4 ${!validPickup ? "border-red-500" : ""}`}>
               <input
                 type="text"
                 id="pickup"
                 className="border-b-2 p-2 border-stone-600 w-full outline-none"
                 value={pickupQuery}
+                onFocus={() => setShowOption(true)}
                 onChange={(e) => {
                   setPickupID("")
                   setPickupQuery(e.target.value)
@@ -640,8 +653,18 @@ export default function PickupFor({
               >
                 <MapPinIcon className={`h-5 w-5 ${isPickingPickup ? "w-7 h-7 text-green-700 bg-green-200 rounded-full p-1" : "text-gray-500 hover:text-green-700"}`} />
               </button>
+              {showOption && !showPickupResults && (
+                <div ref={wrapperRef} className="absolute left-0 right-0 mt-1 bg-[#fcfcfa] border border-gray-300 rounded shadow w-full z-10 max-h-50 overflow-auto text-black">
+                  <button
+                    type="button"
+                    onClick={()=>{getLocation(setPickup, setPickupQuery, setPickupID); setShowOption(false);}}
+                    className="cursor-pointer w-full border-none text-left px-4 py-2 hover:bg-gray-100 transition flex items-center"
+                  >
+                    <Pin strokeWidth={2.5} className="w-4 h-4 text-red-500 mr-2 "/> Choose your Current Location
+                  </button>
+                </div>
+              )}
             </div>
-            <button onClick={()=>{getLocation(setPickup, setPickupQuery, setPickupID)}} className="p-0 m-0 mt-2 text-xs h-max text-stone-600 hover:text-stone-900 text-center w-full cursor-pointer">Choose your Current Location</button>
 
             {!validPickup && (
               <div className="text-center m-auto mb-3 flex items-center justify-center text-red-600 w-full">
@@ -657,10 +680,10 @@ export default function PickupFor({
                       key={idx}
                       onClick={() => {
                         setPickupID(place.id)
-                        setPickupQuery(place.place_name)
+                        setPickupQuery(place.description)
                         setShowPickupResults(false)
                         setValidPickup(true)
-                        forwardGeocode(place.place_name, setPickup)
+                        forwardGeocode(place.description, setPickup)
                       }}
                       className="p-2 hover:bg-gray-100 cursor-pointer text-black"
                     >
@@ -672,14 +695,15 @@ export default function PickupFor({
           </div>
 
           {isOneWay && (
-            <div ref={destinationRef} className="relative w-full max-w-[95%]">
+            <div ref={destinationRef} className="mb-7 relative w-full max-w-[95%]">
               
-              <div className={`relative mb-[20px] ${!validDestination ? "border-red-500" : ""}`}>
+              <div ref={destinationWrapperRef} className={`relative mb-[20px] ${!validDestination ? "border-red-500" : ""}`}>
                 <input
                   type="text"
                   id="destination"
                   className="border-b-2 p-2 border-stone-600 w-full outline-none"
                   value={destinationQuery}
+                  onFocus={()=>{setShowCurrentDest(true)}}
                   onChange={(e) => {
                     setDestinationID("")
                     setDestinationQuery(e.target.value)
@@ -699,6 +723,18 @@ export default function PickupFor({
                 >
                   <MapPinIcon className={`h-5 w-5 ${isPickingDestination ? "h-7 w-7 text-red-600 bg-red-100 rounded-full p-1" : "text-gray-500 hover:text-red-500"}`} />
                 </button>
+
+                {showCurrentDest && !showDestinationResults && (
+                <div ref={wrapperRef} className="absolute left-0 right-0 mt-1 bg-[#fcfcfa] border border-gray-300 rounded shadow w-full z-10 max-h-50 overflow-auto text-black ">
+                  <button
+                    type="button"
+                    onClick={()=>{getLocation(setDestinationCoords, setDestinationQuery, setDestinationID); setShowCurrentDest(false);}}
+                    className="cursor-pointer w-full border-none text-left px-4 py-2 hover:bg-gray-100 transition flex items-center"
+                  >
+                    <Pin strokeWidth={2.5} className="w-4 h-4 text-red-500 mr-2 "/> Choose your Current Location
+                  </button>
+                </div>
+              )}
               </div>
               {!validDestination && (
                 <div className="text-center m-auto mb-3 flex items-center justify-center text-red-600 w-full">
@@ -713,10 +749,10 @@ export default function PickupFor({
                       key={idx}
                       onClick={() => {
                         setDestinationID(place.id)
-                        setDestinationQuery(place.place_name)
+                        setDestinationQuery(place.description)
                         setShowDestinationResults(false)
                         setValidDestination(true) 
-                        forwardGeocode(place.place_name, setDestinationCoords) 
+                        forwardGeocode(place.description, setDestinationCoords) 
                       }}
                       className="p-2 hover:bg-gray-100 cursor-pointer"
                     >

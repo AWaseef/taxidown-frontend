@@ -227,7 +227,7 @@ export default function Pick({ pick,  oneWay, perHour, pickupLocation, destinati
                             key={idx}
                             onClick={() => {
                                 setPickupID(place.id)
-                                setpickupQuery(place.place_name);
+                                setpickupQuery(place.description);
                                 setShowpickupResults(false);
                                 setvalidPickup(true);
                             }}
@@ -282,7 +282,7 @@ export default function Pick({ pick,  oneWay, perHour, pickupLocation, destinati
                             key={idx}
                             onClick={() => {
                                 setDestinationID(place.id)
-                                setdestinationQuery(place.place_name);
+                                setdestinationQuery(place.description);
                                 setShowDestinationResults(false);
                                 setvalidDestination(true);
                             }}
@@ -296,7 +296,7 @@ export default function Pick({ pick,  oneWay, perHour, pickupLocation, destinati
         </div>
         )}
 
-        {
+        {/*
             <div className="w-50 max-w-[85vw] mt-2 text-black text-lg">
                 <label className="block text-md font-medium text-black text-center">{pickdict.ourServices}</label>
                 <Select value={selectedFleetValue} className={cn('outline-none border-none shadow-none')}>
@@ -314,7 +314,7 @@ export default function Pick({ pick,  oneWay, perHour, pickupLocation, destinati
                 </SelectContent>
                 </Select>
             </div>   
-        }
+        */}
         
         <button className='cursor-pointer bg-black text-white rounded-sm text-[17px] p-3 transition-transform duration-300 hover:scale-103 hover:bg-white hover:border-2 hover:border-black hover:text-black w-[130px] mt-4 min-w-max' type='submit'>
             {getOffer}

@@ -1,52 +1,75 @@
 "use client"
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
-import { Plane, Briefcase, Landmark, CalendarClock, ShieldCheck, Clock } from "lucide-react"
+import { Plane, Ship, Landmark, Briefcase, CalendarClock, Car, Accessibility } from "lucide-react";
 
 const services = [
   {
     title: "Airport Transfers",
-    description: "Fast, comfortable airport pickups and drop-offs, always on time.",
+    description:
+      "Fast, reliable, and stress-free transfers to and from Barcelona El Prat Airport (BCN). Drivers track your flight, meet you inside with a name sign, and include free waiting time.",
     icon: Plane,
     color: "text-black bg-stone-200",
     hoverColor: "hover:bg-amber-100",
   },
   {
-    title: "Corporate Travel",
-    description: "Professional transportation for business meetings and executive events.",
-    icon: Briefcase,
+    title: "Cruise Port Transfers",
+    description:
+      "Private door-to-ship service to and from the Port of Barcelona. Fixed pricing and zero hassle, directly from hotel, airport, or any address to your cruise terminal.",
+    icon: Ship,
     color: "text-black bg-stone-200",
     hoverColor: "hover:bg-amber-100",
   },
   {
-    title: "City Tours",
-    description: "Explore major attractions with a local driver and flexible routes.",
+    title: "City Rides",
+    description:
+      "Fast and comfortable rides across Barcelona. Perfect for attractions, restaurants, or hotels — whether heading to Sagrada Família or Passeig de Gràcia.",
     icon: Landmark,
     color: "text-black bg-stone-200",
     hoverColor: "hover:bg-amber-100",
   },
   {
-    title: "Hourly Booking",
-    description: "Hire a private driver by the hour with full flexibility and convenience.",
+    title: "Business & Corporate Travel",
+    description:
+      "Professional, discreet chauffeur service for executives, meetings, and events. Premium fleet and punctual transfers with dedicated corporate support.",
+    icon: Briefcase,
+    color: "text-black bg-stone-200",
+    hoverColor: "hover:bg-amber-100",
+  },
+  {
+    title: "Special Events",
+    description:
+      "Reliable transfers for concerts, football games, festivals, and cultural events with on-time pickup and drop-off service.",
     icon: CalendarClock,
     color: "text-black bg-stone-200",
     hoverColor: "hover:bg-amber-100",
   },
   {
-    title: "Secure Rides",
-    description: "Enjoy safe, private rides with insured vehicles and vetted drivers.",
-    icon: ShieldCheck,
+    title: "Wedding Events",
+    description:
+      "Elegant and punctual transport options for weddings and private events with premium vehicles and professional drivers.",
+    icon: Car,
     color: "text-black bg-stone-200",
     hoverColor: "hover:bg-amber-100",
   },
   {
-    title: "24/7 Availability",
-    description: "We operate around the clock to fit your travel schedule anytime.",
-    icon: Clock,
+    title: "Nationwide Transportation",
+    description:
+      "Private transfers to other cities in Spain on request. Comfortable long-distance travel with professional drivers.",
+    icon: Plane,
     color: "text-black bg-stone-200",
     hoverColor: "hover:bg-amber-100",
   },
-]
+  {
+    title: "Handicap Transportation",
+    description:
+      "Accessible vehicles available for passengers with reduced mobility. Comfort and safety ensured at every step.",
+    icon: Accessibility,
+    color: "text-black bg-stone-200",
+    hoverColor: "hover:bg-amber-100",
+  },
+];
+
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -104,7 +127,7 @@ export default function OurServices() {
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+          className="flex justify-center flex-wrap gap-6 sm:gap-8 lg:gap-10 w-full -mx-3"
         >
           {services.map((service, index) => (
             <ServiceCard key={index} service={service} variants={itemVariants} />
@@ -130,6 +153,7 @@ function ServiceCard({ service, variants }) {
         group relative bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-gray-100
         hover:shadow-xl hover:border-gray-200 transition-all duration-300 cursor-pointer
         focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2
+        w-full sm:w-[47%] md:w-[30%] px-3
       `}
     >
       <motion.div
