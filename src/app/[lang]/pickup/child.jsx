@@ -41,7 +41,7 @@ export default function Child({ visibility, setChildSets, isVisible, setTotal}) 
       ...prev,
       [seatId]: prev[seatId] + 1,
     }));
-    setTotalSeats((prev)=>prev+1)
+    setTotalSeats(totalSeats+1)
   };
 
   const handleDecrement = (seatId) => {
@@ -49,7 +49,11 @@ export default function Child({ visibility, setChildSets, isVisible, setTotal}) 
       ...prev,
       [seatId]: Math.max(0, prev[seatId] - 1),
     }));
-    setTotalSeats((prev)=>prev-1)
+    const seat = seatCounts[seatId];
+    console.log(seat);
+      if(seat >= 1)
+        setTotalSeats(Math.max(0,totalSeats-1))
+    
   };
 
   const formattedSeats = Object.entries(seatCounts)
