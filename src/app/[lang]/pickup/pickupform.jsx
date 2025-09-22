@@ -98,15 +98,13 @@ export default function PickupFor({
   const [returnDate, setReturnDate] = useState(null);
   const [returnTime, setReturnTime] = useState("");
 
-  const [showDateTime, setShowDateTime] = useState(false)
+  const [isReturn, setIsReturn] = useState(false)
 
   const [duration, setDuration] = useState(1);
 
   const [adults, setAdults] = useState(2);
   const [children, setChildren] = useState(0);
   const [luggage, setLuggage] = useState(0);
-
-  const [isReturn, setIsReturn] = useState(false);
 
   const pickupRef = useRef(null)
   const destinationRef = useRef(null)
@@ -434,7 +432,7 @@ export default function PickupFor({
       scrollToTop();
       setButtonLoading(false);
       return;
-    }else if(showDateTime && (!returnDate || !returnTime)){
+    }else if(isReturn && (!returnDate || !returnTime)){
         setError(`${pickdict.fillFields}`);
         scrollToTop();
         setButtonLoading(false);
@@ -483,7 +481,7 @@ export default function PickupFor({
       if(isOneWay)
         body.dropoff_coordinates = destinationCoords
     
-      if (showDateTime) {
+      if (isReturn) {
         body.datetime_return = `${returnDate}T${returnTime}:00`;
       }
 
@@ -590,7 +588,7 @@ export default function PickupFor({
     <div className={`relative flex flex-col-reverse lg:flex-row ${estimatedPrice? "mt-15 lg:mt-25": "mt-15 lg:mt-20 "} lg:gap-10 lg:mx-15 lg:mb-10 h-max overflow-y-auto lg:min-h-[82%] `}>
     {estimatedPrice ?
     <div className="relative container w-max">
-      <PickupDetails pickupDict={pickdict} pickup={pickupQuery} destination={destinationQuery} pickupCoords={pickup} destinationCoords={destinationCoords} phone={phone ? phone: null} pickupDate={selectedDate} pickupTime={selectedTime} price={isOneWay ? estimatedPrice[0] : estimatedPrice} returnPrice={isOneWay ? estimatedPrice[1] : null} numAdultSeats={adults} numChildSeats={childSeats} customerNote={comment} returnDate={returnDate} returnTime={returnTime} vehicleID={selectedFleetID} vehicleCategory={selectedFleetValue} duration={!isOneWay ? duration : null} services ={getservices()} login = {login} signup={signup} lang={lang}/>
+      <PickupDetails pickupDict={pickdict} pickup={pickupQuery} destination={destinationQuery} pickupCoords={pickup} destinationCoords={destinationCoords} phone={phone ? phone: null} pickupDate={selectedDate} pickupTime={selectedTime} price={isOneWay ? estimatedPrice[0] : estimatedPrice} returnPrice={isOneWay ? estimatedPrice[1] : null} numAdultSeats={adults} numChildSeats={childSeats} customerNote={comment} returnDate={isReturn ? returnDate: null} returnTime={returnTime} vehicleID={selectedFleetID} vehicleCategory={selectedFleetValue} duration={!isOneWay ? duration : null} services ={getservices()} login = {login} signup={signup} lang={lang}/>
     </div>
     :
     <form ref={formRef} className="relative inset-0 bg-white w-[100%] flex mt-[-20] lg:mt-0 lg:pt-15 lg:p-8 lg:w-max flex-col items-center text-black h-max py-10 rounded-2xl shadow-custom">
@@ -886,13 +884,13 @@ export default function PickupFor({
         }
         {isOneWay && 
         <div className="w-90 max-w-[85%] flex items-center space-x-2 mt-5">
-          <Checkbox id="schedule" checked={showDateTime} className="w-5 h-5" onCheckedChange={(e)=>{setShowDateTime(e); setReturnDate(null); setReturnTime("");}} />
+          <Checkbox id="schedule" checked={isReturn} className="w-5 h-5" onCheckedChange={(e)=>{setIsReturn(e); setReturnDate(null); setReturnTime("");}} />
           <label htmlFor="schedule" className="text-lg text-stone-800">
             {pickdict.addReturn}
           </label>
         </div>
         }
-        {showDateTime &&
+        {isReturn &&
         <div className="grid grid-cols-2 gap-4 w-90 max-w-[85%] mt-2">
         <div className="w-full">
           <label className="block text-sm font-medium text-stone-800 mb-1">{pickdict.returnDate}</label>

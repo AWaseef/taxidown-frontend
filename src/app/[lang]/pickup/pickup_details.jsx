@@ -260,7 +260,7 @@ export default function PickupDetails({pickupDict, pickup, destination, pickupCo
             </div>
             }
             
-            {pickupData.returnPrice ?
+            {pickupData.returnDate ?
             <div className="flex items-center space-x-3">
                 <Calendar className="w-5 h-5 text-gray-700" />
                 <div>

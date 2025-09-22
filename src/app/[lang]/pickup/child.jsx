@@ -35,7 +35,6 @@ export default function Child({ visibility, setChildSets, isVisible, setTotal}) 
   }, []);
 
 
-  // increment/decrement handlers
   const handleIncrement = (seatId) => {
     setSeatCounts((prev) => ({
       ...prev,
@@ -50,14 +49,12 @@ export default function Child({ visibility, setChildSets, isVisible, setTotal}) 
       [seatId]: Math.max(0, prev[seatId] - 1),
     }));
     const seat = seatCounts[seatId];
-    console.log(seat);
-      if(seat >= 1)
-        setTotalSeats(Math.max(0,totalSeats-1))
-    
+    if(seat >= 1)
+      setTotalSeats(Math.max(0,totalSeats-1))
   };
 
   const formattedSeats = Object.entries(seatCounts)
-    .filter(([_, num_seats]) => num_seats > 0) // remove empty seats if needed
+    .filter(([_, num_seats]) => num_seats > 0)
     .map(([id, num_seats]) => ({
       child_seat: Number(id),
       num_seats,
