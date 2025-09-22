@@ -49,7 +49,7 @@ export default function Child({ visibility, setChildSets, isVisible, setTotal}) 
       ...prev,
       [seatId]: Math.max(0, prev[seatId] - 1),
     }));
-    setTotalSeats((prev)=>prev+1)
+    setTotalSeats((prev)=>prev-1)
   };
 
   const formattedSeats = Object.entries(seatCounts)
@@ -100,7 +100,7 @@ export default function Child({ visibility, setChildSets, isVisible, setTotal}) 
           ))}
         </div>
         <div className="w-full flex justify-center ">
-          <button className="text-lg bg-black text-white cursor-pointer border-2 hover:border-black hover:bg-white hover:text-black px-5 py-2 mb-3 rounded-md" onClick={()=>{visibility(false); setChildSets(JSON.stringify(formattedSeats, null, 2)); setTotal(totalSeats)}}>
+          <button className="text-lg bg-black text-white cursor-pointer border-2 hover:border-black hover:bg-white hover:text-black px-5 py-2 mb-3 rounded-md" onClick={()=>{visibility(false); setChildSets(formattedSeats); setTotal(totalSeats)}}>
             Save
           </button>
         </div>
