@@ -576,7 +576,7 @@ export default function PickupFor({
   
   return (
     <>
-    <Child isVisible={childVisibility} visibility={setChildVisiblity} setChildSets={setChildSets} setTotal={setChildren}/>
+    <Child isVisible={childVisibility} visibility={setChildVisiblity} setChildSets={setChildSets} setTotal={setChildren} saveTitle={pickdict.save} seatsTitle={pickdict.childern_seats}/>
     {estimatedPrice ?
       <div className="mb-4 relative ">
       <Button variant="ghost" size="md" className={`bg-white p-2 lg:bg-transparent z-500 absolute top-0 left-2 cursor-pointer mt-16 lg:ml-10 text-md hover:border-black`} onClick={()=>{setEstimatedPrice(null); setButtonLoading(false);}}>
@@ -1010,7 +1010,7 @@ export default function PickupFor({
     
     <div className="flex flex-col w-90 max-w-[85%] mt-5">
       <label htmlFor="phone" className="block text-sm font-medium">
-        Phone *
+        Phone
       </label>
 
       <div className={`flex items-center  p-2 ${
@@ -1051,7 +1051,7 @@ export default function PickupFor({
           value = {email}
           id="email"
           className="border-b-2 p-2 border-stone-600 w-full outline-none resize-none overflow-hidden"
-          placeholder={`${signup.email} *`}
+          placeholder={`${signup.email}`}
           required
       />
       {!validEmail && <span className='text-center m-auto flex items-center justify-center text-red-600 w-full'>Invalid Email</span>}

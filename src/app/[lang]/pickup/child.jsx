@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Minus, Plus, X } from "lucide-react";
 
-export default function Child({ visibility, setChildSets, isVisible, setTotal}) {
+export default function Child({ visibility, setChildSets, isVisible, setTotal, saveTitle, seatsTitle}) {
   const [seats, setSeats] = useState([]);
   const [seatCounts, setSeatCounts] = useState({});
   const [totalSeats, setTotalSeats] = useState(0);
@@ -18,7 +18,6 @@ export default function Child({ visibility, setChildSets, isVisible, setTotal}) 
           const data = await response.json();
           setSeats(data);
 
-          // initialize counts for each seat id
           const initialCounts = {};
           data.forEach((seat) => {
             initialCounts[seat.id] = 0;
@@ -66,7 +65,7 @@ export default function Child({ visibility, setChildSets, isVisible, setTotal}) 
         <button className="cursor-pointer" onClick={() => visibility(false)}>
           <X className="absolute right-6 top-5" />
         </button>
-        <h1 className="text-xl font-bold">Children seats</h1>
+        <h1 className="text-xl font-bold">{seatsTitle}</h1>
 
         <div className="mt-8 mb-5 flex flex-col gap-4">
           {seats.map((seat) => (
@@ -102,7 +101,7 @@ export default function Child({ visibility, setChildSets, isVisible, setTotal}) 
         </div>
         <div className="w-full flex justify-center ">
           <button className="text-lg bg-black text-white cursor-pointer border-2 hover:border-black hover:bg-white hover:text-black px-5 py-2 mb-3 rounded-md" onClick={()=>{visibility(false); setChildSets(formattedSeats); setTotal(totalSeats)}}>
-            Save
+            {saveTitle}
           </button>
         </div>
       </div>

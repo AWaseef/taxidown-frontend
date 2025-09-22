@@ -513,7 +513,7 @@ export default async function TermsPage({params}) {
   
         {/* Footer hint (hidden on print) */}
         <footer className="border-t border-gray-200 bg-gray-50 py-8 text-center text-xs text-gray-500 print:hidden">
-          © {new Date().getFullYear()} Barcelona City Taxi. All rights reserved.
+          © {new Date().getFullYear()} QuickPickups. All rights reserved.
         </footer>
       </main>
     );

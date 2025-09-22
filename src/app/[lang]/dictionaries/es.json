@@ -14,7 +14,8 @@
     "contactUs": "Contáctanos",
     "bookingTitle": "Reservas",
     "logoutTitle": "Cerrar sesión",
-    "LogoutSuccessful": "Cierre de sesión exitoso."
+    "LogoutSuccessful": "Cierre de sesión exitoso.",
+    "choose_service": "O seleccione uno de nuestros servicios"
   },
   "ride": {
     "undetermined": "Precio determinado por llamada",
@@ -152,6 +153,10 @@
   "hour": "hora",
   "hours": "horas", 
   "services": "Seleccione uno de nuestros servicios",
-  "ourServices": "Nuestros servicios"
+  "ourServices": "Nuestros servicios",
+  "luggage": "Equipaje",
+  "flight": "Número de vuelo",
+  "save": "Guardar",
+  "childern_seats": "Asientos para niños"
   }
 }

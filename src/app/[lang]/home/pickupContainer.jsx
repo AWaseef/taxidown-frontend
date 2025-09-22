@@ -13,7 +13,7 @@ export default function PickupContainer({dict, lang}) {
         }
         className="absolute bottom-10 px-5 py-3 bg-orange-500 text-white rounded-3xl shadow-lg hover:text-orange-600 hover:bg-white border-2 border-orange-500 hover:font-semibold cursor-pointer transition group"
         >
-        Or Choose One of Our Services 
+        {dict.lang.choose_service}
         <ArrowBigDownDash className="inline-block ml-2 text-lg transform transition-transform duration-300 group-hover:translate-y-1"/>
     </button>
     </div>
