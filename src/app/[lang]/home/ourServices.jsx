@@ -155,7 +155,7 @@ function ServiceCard({ service, variants, lang}) {
       variants={variants}
       whileHover={{
         y: -8,
-        transition: { duration: 0.3, ease: "easeOut" },
+        transition: { duration: 0.01, ease: "easeOut" },
       }}
       whileTap={{ scale: 0.98 }}
       className={`

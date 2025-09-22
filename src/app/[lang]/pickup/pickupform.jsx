@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils"
 import { format } from "date-fns"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Minus, Plus, User, Baby } from "lucide-react";
+import { Minus, Plus, User, Baby, Luggage, PlaneTakeoff } from "lucide-react";
 import { redirect, useRouter } from "next/navigation";
 import { Loader2Icon, Pin } from "lucide-react";
 import { useSearchParams } from "next/navigation";
@@ -27,6 +27,7 @@ import PhoneInput ,{isValidPhoneNumber, parsePhoneNumber } from 'react-phone-num
 import 'react-phone-number-input/style.css';
 import { Timer } from "lucide-react";
 import Child from "./child";
+import { Plane } from "lucide-react";
 
 const schema = z.object({
   phone: z
@@ -67,6 +68,7 @@ export default function PickupFor({
     return param !== null ? param === "true" : true;
   });
   const [pickupQuery, setPickupQuery] = useState(searchParams.get("pickup") || "")
+  const service = searchParams.get("service") || "";
   const [pickupID, setPickupID] = useState("")
   const [pickupResults, setPickupResults] = useState([])
   const [destinationQuery, setDestinationQuery] = useState(searchParams.get("destination") || "")
@@ -102,6 +104,7 @@ export default function PickupFor({
 
   const [adults, setAdults] = useState(2);
   const [children, setChildren] = useState(0);
+  const [luggage, setLuggage] = useState(0);
 
   const [isReturn, setIsReturn] = useState(false);
 
@@ -125,6 +128,8 @@ export default function PickupFor({
 
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(true);
+
+  const [flight, setFlight] = useState("")
 
   const [isValid, setIsValid] = useState(false);
 
@@ -469,7 +474,11 @@ export default function PickupFor({
         pickup_coordinates: pickup,
         id_vehicle_category: selectedFleetID,
         datetime_pickup: `${selectedDate}T${selectedTime}:00`,
+        num_adult_seats: adults
       };
+
+      if(childSeats)
+        body.child_seats = childSeats;
 
       if(isOneWay)
         body.dropoff_coordinates = destinationCoords
@@ -556,9 +565,20 @@ export default function PickupFor({
 
   const [showOption, setShowOption] = useState(false);
   const [showCurrentDest, setShowCurrentDest] = useState(false);
+
+  const getservices = ()=>{
+    const services = {
+      service: service
+    }
+    if(flight)
+      services.Flight_Number = flight;
+
+    return services
+  }
   
   return (
     <>
+    <Child isVisible={childVisibility} visibility={setChildVisiblity} setChildSets={setChildSets} setTotal={setChildren}/>
     {estimatedPrice ?
       <div className="mb-4 relative ">
       <Button variant="ghost" size="md" className={`bg-white p-2 lg:bg-transparent z-500 absolute top-0 left-2 cursor-pointer mt-16 lg:ml-10 text-md hover:border-black`} onClick={()=>{setEstimatedPrice(null); setButtonLoading(false);}}>
@@ -570,7 +590,7 @@ export default function PickupFor({
     <div className={`relative flex flex-col-reverse lg:flex-row ${estimatedPrice? "mt-15 lg:mt-25": "mt-15 lg:mt-20 "} lg:gap-10 lg:mx-15 lg:mb-10 h-max overflow-y-auto lg:min-h-[82%] `}>
     {estimatedPrice ?
     <div className="relative container w-max">
-      <PickupDetails pickupDict={pickdict} pickup={pickupQuery} destination={destinationQuery} pickupCoords={pickup} destinationCoords={destinationCoords} phone={phone ? phone: null} pickupDate={selectedDate} pickupTime={selectedTime} price={isOneWay ? estimatedPrice[0] : estimatedPrice} returnPrice={isOneWay ? estimatedPrice[1] : null} numAdultSeats={adults} numChildSeats={children} customerNote={comment} returnDate={returnDate} returnTime={returnTime} vehicleID={selectedFleetID} vehicleCategory={selectedFleetValue} duration={!isOneWay ? duration : null} login = {login} signup={signup} lang={lang}/>
+      <PickupDetails pickupDict={pickdict} pickup={pickupQuery} destination={destinationQuery} pickupCoords={pickup} destinationCoords={destinationCoords} phone={phone ? phone: null} pickupDate={selectedDate} pickupTime={selectedTime} price={isOneWay ? estimatedPrice[0] : estimatedPrice} returnPrice={isOneWay ? estimatedPrice[1] : null} numAdultSeats={adults} numChildSeats={childSeats} customerNote={comment} returnDate={returnDate} returnTime={returnTime} vehicleID={selectedFleetID} vehicleCategory={selectedFleetValue} duration={!isOneWay ? duration : null} services ={getservices()} login = {login} signup={signup} lang={lang}/>
     </div>
     :
     <form ref={formRef} className="relative inset-0 bg-white w-[100%] flex mt-[-20] lg:mt-0 lg:pt-15 lg:p-8 lg:w-max flex-col items-center text-black h-max py-10 rounded-2xl shadow-custom">
@@ -915,7 +935,7 @@ export default function PickupFor({
         </div>
       </div>
       }
-      <div className="flex justify-center gap-3 md:gap-6 w-90 max-w-[85%] mt-5">
+      <div className="flex justify-between  md:gap-6 w-90 max-w-[88%] mt-5">
 
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center justify-end gap-1">
@@ -940,7 +960,6 @@ export default function PickupFor({
           </button>
         </div>
       </div>
-      <Child isVisible={childVisibility} visibility={setChildVisiblity} setChildSets={setChildSets} setTotal={setChildren}/>
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-1">
           <Baby className="w-4 h-4 md:w-5 md:h-5 text-stone-600" />
@@ -965,9 +984,35 @@ export default function PickupFor({
         </div>
       </div>
     </div>
+    {/* luggage #
+      <div className="mt-2 flex items-center justify-between w-90 max-w-[88%]">
+        <div className="flex items-center justify-end gap-1">
+          <Luggage className="w-6 h-4 md:w-5 md:h-5 text-stone-700" />
+          <div className="text-md font-bold text-stone-800">{pickdict.luggage}</div>
+        </div>
+        <div className="flex items-center gap-1">
+          <button
+            type="button"
+            onClick={() => setLuggage((prev) => Math.max(0, prev - 1))}
+            className="flex items-center justify-center w-6 h-6 md:w-7 md:h-7 border-2 rounded-sm border-stone-200 hover:bg-stone-200"
+          >
+            <Minus className="w-4 h-4" />
+          </button>
+          <div className="w-max text-center py-1 md:px-2">{luggage}</div>
+          <button
+            type="button"
+            onClick={() => setLuggage((prev) => prev + 1)}
+            className="flex items-center justify-center w-6 h-6 md:w-7 md:h-7 border-2 rounded-sm border-stone-200 hover:bg-stone-200"
+          >
+            <Plus className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+     */}
+    
     <div className="flex flex-col w-90 max-w-[85%] mt-5">
       <label htmlFor="phone" className="block text-sm font-medium">
-        Phone
+        Phone *
       </label>
 
       <div className={`flex items-center  p-2 ${
@@ -1001,24 +1046,34 @@ export default function PickupFor({
     </div>
 
     <div className={`flex items-center w-90 max-w-[85%] mt-5 mb-[2 ${!validEmail ? 'red-wrapper':""}`}>
-    <Mail className="h-6 w-6 text-gray-600" />
-
-          <input type="text" 
-              name = "email"
-              onChange = {(e)=>setEmail(e.target.value)}
-              value = {email}
-              id="email"
-              className="border-b-2 p-2 border-stone-600 w-full outline-none resize-none overflow-hidden"
-              placeholder={`${signup.email}`}
-              required
-          />
-
-          {!validEmail && <span className='text-center m-auto flex items-center justify-center text-red-600 w-full'>Invalid Email</span>}
-
+    <Mail className="h-6 w-6 text-orange-600" />
+      <input type="text" 
+          name = "email"
+          onChange = {(e)=>setEmail(e.target.value)}
+          value = {email}
+          id="email"
+          className="border-b-2 p-2 border-stone-600 w-full outline-none resize-none overflow-hidden"
+          placeholder={`${signup.email} *`}
+          required
+      />
+      {!validEmail && <span className='text-center m-auto flex items-center justify-center text-red-600 w-full'>Invalid Email</span>}
+    </div> 
+    {service === "Airport Transfers" &&
+    <div className={`flex items-center w-90 max-w-[85%] mt-5 mb-[2]`}>
+    <Plane className="h-6 w-6 text-orange-600" />
+      <input type="text" 
+          name = "flight"
+          onChange = {(e)=>setFlight(e.target.value)}
+          value = {flight}
+          id="flight"
+          className="border-b-2 p-2 border-stone-600 w-full outline-none resize-none overflow-hidden"
+          placeholder={`${pickdict.flight} *`}
+          required
+      />
       </div>
-
+    }
     <div className={`flex items-center w-90 max-w-[85%] mt-5 mb-[20px]`}>
-      <MessageCircleMore className="h-6 w-6 text-gray-600" />
+      <MessageCircleMore className="h-6 w-6 text-orange-600" />
       <textarea
         id="comment"
         className="border-b-2 p-2 border-stone-600 w-full outline-none resize-none overflow-hidden"

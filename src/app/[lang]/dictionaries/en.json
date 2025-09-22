@@ -151,6 +151,8 @@
     "hour": "hour",
     "hours": "hours", 
     "services" : "Choose one of our services",
-    "ourServices": "Our Services"
+    "ourServices": "Our Services", 
+    "luggage":"Luggage", 
+    "flight": "Flight Number"
   }
 }
