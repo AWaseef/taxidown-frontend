@@ -1,8 +1,9 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from 'react'
 
 export default function Es() {
   return (
-    <>{/*
+    <>
     <section className="mt-15 border-b border-gray-200 bg-gradient-to-b from-gray-50 to-white print:hidden">
         <div className="mx-auto max-w-5xl px-6 py-10">
           <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Términos y Condiciones</h1>
@@ -518,7 +519,6 @@ export default function Es() {
           </div>
         </div>
       </section>
-                */}
       </>
   )
 }

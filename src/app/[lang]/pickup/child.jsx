@@ -74,16 +74,17 @@ export default function Child({ visibility, setChildSets, isVisible, setTotal, s
             > 
             <div className="flex justify-center items-center gap-1">
 
-              {seat.seat_image &&
                 <div className="w-9 h-9 flex-shrink-0">
                   <img
-                    src={seat.seat_image}
-                    alt={"icon"}
+                    src={seat.seat_image || '/seat.png'}
+                    alt="icon"
                     className="w-full h-full object-contain rounded"
-                    onError={(e) => (e.currentTarget.style.display = "none")}
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;          // prevent loop if fallback fails
+                      e.currentTarget.src = '/seat.png';       // leading slash => public/seat.png
+                    }}
                   />
                 </div>
-              }
               <div className="flex flex-col">
                 <h1 className="text-lg mr-1">{seat.seat_type}</h1>
                 <p className="text-md text-stone-500 ml-2">+€{seat.seat_cost}</p>
