@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Es() {
   return (
-    <>
+    <>{/*
     <section className="mt-15 border-b border-gray-200 bg-gradient-to-b from-gray-50 to-white print:hidden">
         <div className="mx-auto max-w-5xl px-6 py-10">
           <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Términos y Condiciones</h1>
@@ -15,7 +15,6 @@ export default function Es() {
 
       <section className="mx-auto max-w-5xl px-6 py-10">
         <div className="lg:grid lg:grid-cols-[260px_1fr] lg:gap-10">
-          {/* Sidebar: Table of contents */}
           <aside className="mb-10 lg:mb-0 lg:sticky lg:top-24 lg:h-[calc(100vh-6rem)] lg:overflow-y-auto print:hidden">
             <nav aria-label="Tabla de contenidos" className="rounded-2xl border border-gray-200 p-4 shadow-sm">
               <h2 className="text-sm font-medium text-gray-800">En esta página</h2>
@@ -48,7 +47,6 @@ export default function Es() {
             </nav>
           </aside>
 
-          {/* Section 1: Definitions and Scope */}
           <div>
             <div className="m-10 text-lg" id="definitions">
               <h2 id="definitions" className="mb-5 text-2xl font-bold text-slate-900 flex items-center gap-4">
@@ -82,7 +80,6 @@ export default function Es() {
               </div>
             </div>
 
-            {/* Section 2: Booking and Reservation Process */}
             <div id="booking" className="m-10 text-lg">
               <h2 id="booking" className="mb-5 text-2xl font-bold text-slate-900 flex items-center gap-4">
                 2. Proceso de Reserva
@@ -154,7 +151,6 @@ export default function Es() {
               </p>
             </div>
 
-            {/* Section 3: Payment Terms */}
             <div id="payment" className="m-10 text-lg">
               <h2 className="mb-5 text-2xl font-bold text-slate-900 flex items-center gap-4">3. Términos de Pago</h2>
 
@@ -192,7 +188,6 @@ export default function Es() {
               </p>
             </div>
 
-            {/* Section 4: Changes and Cancellations */}
             <div id="changes" className="m-10 text-lg">
               <h2 className="mb-5 text-2xl font-bold text-slate-900 flex items-center gap-4">
                 4. Cambios y Cancelaciones
@@ -243,7 +238,6 @@ export default function Es() {
               </p>
             </div>
 
-            {/* Section 5: Service Standards */}
             <div id="service" className="m-10 text-lg">
               <h2 className="mb-5 text-2xl font-bold text-slate-900 flex items-center gap-4">
                 5. Estándares de Servicio
@@ -292,7 +286,6 @@ export default function Es() {
               </p>
             </div>
 
-            {/* Section 6: Child Safety & Accessibility */}
             <div id="child" className="m-10 text-lg">
               <h2 className="mb-5 text-2xl font-bold text-slate-900 flex items-center gap-4">
                 6. Seguridad Infantil y Accesibilidad
@@ -328,7 +321,6 @@ export default function Es() {
               </p>
             </div>
 
-            {/* Section 7: Luggage Policy */}
             <div id="luggage" className="m-10 text-lg">
               <h2 className="mb-5 text-2xl font-bold text-slate-900 flex items-center gap-4">
                 7. Política de Equipaje
@@ -383,7 +375,6 @@ export default function Es() {
               </p>
             </div>
 
-            {/* Section 8: Insurance and Liability */}
             <div id="insurance" className="m-10 text-lg">
               <h2 className="mb-5 text-2xl font-bold text-slate-900 flex items-center gap-4">
                 8. Seguro y Responsabilidad
@@ -414,7 +405,6 @@ export default function Es() {
               </p>
             </div>
 
-            {/* Section 9: Intellectual Property and Website Use */}
             <div id="ip" className="m-10 text-lg">
               <h2 className="mb-5 text-2xl font-bold text-slate-900 flex items-center gap-4">
                 9. Propiedad Intelectual y Uso del Sitio Web
@@ -448,7 +438,6 @@ export default function Es() {
               </p>
             </div>
 
-            {/* Section 10: Privacy and Data Protection */}
             <div id="privacy" className="m-10 text-lg">
               <h2 className="mb-5 text-2xl font-bold text-slate-900 flex items-center gap-4">
                 10. Privacidad y Protección de Datos
@@ -496,7 +485,6 @@ export default function Es() {
               </p>
             </div>
 
-            {/* Section 11: Governing Law and Jurisdiction */}
             <div id="law" className="m-10 text-lg">
               <h2 className="mb-5 text-2xl font-bold text-slate-900 flex items-center gap-4">
                 11. Ley Aplicable y Jurisdicción
@@ -507,7 +495,6 @@ export default function Es() {
               </p>
             </div>
 
-            {/* Section 12: Contact Details */}
             <div id="contact" className="m-10 text-lg">
               <h2 className="mb-5 text-2xl font-bold text-slate-900 flex items-center gap-4">12. Datos de Contacto</h2>
               <p className="my-3 text-slate-700">
@@ -517,7 +504,6 @@ export default function Es() {
               </p>
             </div>
 
-            {/* Section 13: Changes to Terms */}
             <div id="changes-to-terms" className="m-10 text-lg">
               <h2 className="mb-5 text-2xl font-bold text-slate-900 flex items-center gap-4">
                 13. Cambios en los Términos
@@ -532,6 +518,7 @@ export default function Es() {
           </div>
         </div>
       </section>
+                */}
       </>
   )
 }
