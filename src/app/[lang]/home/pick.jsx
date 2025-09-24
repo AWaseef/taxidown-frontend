@@ -123,7 +123,8 @@ export default function Pick({ pick,  oneWay, perHour, pickupLocation, destinati
 
     const handleSubmit = async(e) => {
         e.preventDefault(); 
-        router.push(`/${lang}/pickup?pickup=${pickupQuery}&destination=${destinationQuery}&oneway=${isOneWay}`);
+        console.log(pickupQuery)
+        router.push(`/${lang}/pickup?pickup=${encodeURIComponent(pickupQuery)}&destination=${encodeURIComponent(destinationQuery)}&oneway=${isOneWay}`);
     }; 
 
     useEffect(() => {

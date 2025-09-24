@@ -1056,7 +1056,7 @@ export default function PickupFor({
       />
       {!validEmail && <span className='text-center m-auto flex items-center justify-center text-red-600 w-full'>Invalid Email</span>}
     </div> 
-    {service === "Airport Transfers" &&
+    {service === "Airport Transfers" || service === "Traslados al aeropuerto" &&
     <div className={`flex items-center w-90 max-w-[85%] mt-5 mb-[2]`}>
     <Plane className="h-6 w-6 text-orange-600" />
       <input type="text" 

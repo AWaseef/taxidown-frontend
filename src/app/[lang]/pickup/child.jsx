@@ -24,7 +24,6 @@ export default function Child({ visibility, setChildSets, isVisible, setTotal, s
           });
           setSeatCounts(initialCounts);
 
-          console.log("Fetched seats:", data);
         }
       } catch (err) {
         console.error("Error fetching seats:", err);
@@ -72,10 +71,23 @@ export default function Child({ visibility, setChildSets, isVisible, setTotal, s
             <div
               key={seat.id}
               className="flex items-center justify-between gap-2"
-            >
+            > 
+            <div className="flex justify-center items-center gap-1">
+
+              {seat.seat_image &&
+                <div className="w-9 h-9 flex-shrink-0">
+                  <img
+                    src={seat.seat_image}
+                    alt={"icon"}
+                    className="w-full h-full object-contain rounded"
+                    onError={(e) => (e.currentTarget.style.display = "none")}
+                  />
+                </div>
+              }
               <div className="flex flex-col">
                 <h1 className="text-lg mr-1">{seat.seat_type}</h1>
                 <p className="text-md text-stone-500 ml-2">+€{seat.seat_cost}</p>
+              </div>
               </div>
               <div className="flex items-center gap-1">
                 <button

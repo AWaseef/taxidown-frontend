@@ -180,14 +180,14 @@ function ServiceCard({ service, variants, lang }) {
 
   const navigate = () => {
     router.push(
-      `/${lang}/pickup?pickup=${''}&destination=${''}&oneway=${service.title.includes("Bodas") ? 'false' : 'true'}&service=${service.title}`
+      `/${lang}/pickup?pickup=${''}&destination=${''}&oneway=${service.title.includes("Bodas") || service.title.includes("Wedding") ? 'false' : 'true'}&service=${service.title}`
     )
   }
 
   return (
     <motion.button
       variants={variants}
-      whileHover={{ y: -8, transition: { duration: 0.01, ease: "easeOut" } }}
+      whileHover={{ y: -8, transition: { duration: 0.0001, ease: "easeOut" } }}
       whileTap={{ scale: 0.98 }}
       className="group relative bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:border-gray-200 transition-all duration-300 cursor-pointer w-full sm:w-[47%] md:w-[30%] px-3"
       onClick={navigate}
