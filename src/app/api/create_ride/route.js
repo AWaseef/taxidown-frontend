@@ -31,7 +31,7 @@ export async function POST(request) {
             });
             const jsonResponse = await response.json()
             if(response.status === 201){
-                const res = NextResponse.json({ message: 'Ride created successfully' },{status : response.status });
+                const res = NextResponse.json({ jsonResponse},{status : response.status });
                 if (cookieHeader2){
                     res.headers.set('Set-Cookie', cookieHeader2)
                 }
@@ -52,7 +52,7 @@ export async function POST(request) {
             });
             const jsonResponse = await response.json();
             if(response.status === 201 ){
-                const res = NextResponse.json({ message: 'Ride created successfully' },{status :  response.status });
+                const res = NextResponse.json({ message: jsonResponse},{status :  response.status });
                 return res
             }
             return NextResponse.json({ message: jsonResponse }, {status: response.status})

@@ -49,6 +49,8 @@ export default function Card({pickupDict}) {
 
       const duration = searchParams.get("duration");
 
+      const booking = searchParams.get("booking");
+
       const finalData = {
         pickup: pickup,
         destination: destination,
@@ -59,6 +61,7 @@ export default function Card({pickupDict}) {
         price: price,
         returnDate: returnDate,
         returnTime: returnTime,
+        booking: booking,
         duration: duration
       }
   
@@ -79,7 +82,8 @@ export default function Card({pickupDict}) {
     return (
       <div className="flex items-center justify-center w-max" >
           <div className=" md:bg-white rounded-xl md:shadow p-6 w-90 max-w-[95%] md:w-120">
-          <h2 className="text-green-600 text-xl font-semibold mb-6">{pickupDict.rideCreated}</h2>
+          <h2 className="text-green-600 text-xl font-semibold mb-4">{pickupDict.rideCreated}</h2>
+          <h3 className="ml-3 text-[18px] font-bold mb-2">Booking # {pickupData.booking}</h3>
             
             <div className="space-y-4 m-4">
             <div className="flex gap-4 w-100 max-w-[90%]">
@@ -127,7 +131,7 @@ export default function Card({pickupDict}) {
                   <p className="text-gray-600">{pickupData.pickupDate}{'\u00A0'}{'\u00A0'}{'\u00A0'}{pickupData.pickupTime}</p>
                 </div>
               </div>
-              {pickupData.duration &&
+              {pickupData.duration >= 1 &&
               <div className="flex items-center space-x-3">
                 <Timer className="w-6 h-6 text-stone-700" />
                 <div>
@@ -136,7 +140,7 @@ export default function Card({pickupDict}) {
                 </div>
               </div>
               }
-              {pickupData.returnTime ?
+              {pickupData.returnDate != "null" && pickupData.returnTime ?
               <div className="flex items-center space-x-3">
                   <Calendar className="w-5 h-5 text-gray-700" />
                   <div>
