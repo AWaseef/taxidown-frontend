@@ -15,7 +15,7 @@ import PickLogin from "../home/pick_login"
 import SuccessModal from "../home/modal"
 import { Timer } from "lucide-react"
 
-export default function PickupDetails({pickupDict, pickup, destination, pickupCoords, destinationCoords, phone, pickupDate, pickupTime, price, returnPrice, numAdultSeats, numChildSeats,services ,customerNote, returnDate,  returnTime, vehicleID, vehicleCategory, login, signup, lang, duration} ) {
+export default function PickupDetails({pickupDict, pickup, destination, pickupCoords, destinationCoords, phone, email, pickupDate, pickupTime, price, returnPrice, numAdultSeats, numChildSeats,services ,customerNote, returnDate,  returnTime, vehicleID, vehicleCategory, login, signup, lang, duration} ) {
   const router = useRouter();
 
   const [IsLogin, setLogin] = useState(false);
@@ -48,7 +48,8 @@ export default function PickupDetails({pickupDict, pickup, destination, pickupCo
     returnTime: returnTime,
     customerNote: customerNote,
     duration:duration,
-    services:services
+    services:services, 
+    email:email
   })
 
   const [paymentCash, setPaymentCash] = useState("cash");
@@ -128,6 +129,10 @@ export default function PickupDetails({pickupDict, pickup, destination, pickupCo
       customer_note: pickupData.customerNote,
       services: pickupData.services
     }
+
+    if(email){
+      body.email = pickupData.email
+    }
     
     if(pickupData.destination){
         body.dropoff_coordinates = pickupData.destinationCoords;
@@ -145,6 +150,8 @@ export default function PickupDetails({pickupDict, pickup, destination, pickupCo
         credentials: 'include',
         body: JSON.stringify(body),
     })
+
+    console.log(body)
     const data = await response.json();
     if(response.status === 201){
         const totalPrice = pickupData.returnPrice
