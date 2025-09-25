@@ -121,7 +121,6 @@ export default function Ride({pickupText, destinationText, hour, hours, duration
           >
             <EllipsisVerticalIcon className="w-6 h-6" />
           </button>
-          
 
           {/* Cancel button shown conditionally */}
           {showCancel && (
@@ -146,7 +145,6 @@ export default function Ride({pickupText, destinationText, hour, hours, duration
            <p className={`font-semibold text-[17px] ${getStatusColor()}`}>{status}</p>
         </div>
         
-        
         <div className='flex items-center'>
             <LucideDollarSign size={25} className=" text-green-900 w-4" />
             {price ?
@@ -157,8 +155,6 @@ export default function Ride({pickupText, destinationText, hour, hours, duration
             }
         </div>
       </div>
-      
-
     </div>
     </>
   )

@@ -156,6 +156,9 @@
     "luggage":"Luggage", 
     "flight": "Flight Number",
     "save": "Save",
-    "childern_seats":"Children seats"
+    "childern_seats":"Children seats",
+    "email": "Email",
+    "booking": "Booking",
+    "notFound": "This page could not be found."
   }
 }

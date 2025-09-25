@@ -157,6 +157,9 @@
   "luggage": "Equipaje",
   "flight": "Número de vuelo",
   "save": "Guardar",
-  "childern_seats": "Asientos para niños"
+  "childern_seats": "Asientos para niños",
+  "email": "Correo electrónico",
+  "booking": "Reserva",
+  "notFound": "No se pudo encontrar esta página."
   }
 }
