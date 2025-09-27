@@ -21,6 +21,7 @@ export default function Form({lang, pickupDict, bookingNum}) {
       if(response.status === 200){
         const data = await response.json()
         setDetails(data[0]);
+        console.log(data[0]);
         setIsLoading(false);
       }else if(response.status === 404){
         setIsLoading(false);
@@ -84,7 +85,7 @@ export default function Form({lang, pickupDict, bookingNum}) {
             }
             </div>
            </div>
-            {details.booking.phone &&
+            {details.booking.phone_number &&
             <div className="flex items-center space-x-3">
               <Phone className="w-5 h-5 text-gray-700" />
               <div>
@@ -99,7 +100,7 @@ export default function Form({lang, pickupDict, bookingNum}) {
               <Mail className="w-5 h-5 text-gray-700" />
               <div>
                 <p className="font-medium">{pickupDict.email}</p>
-                <p className="text-gray-600">{details.booking.phone || "Not provided"}</p>
+                <p className="text-gray-600">{details.booking.email || "Not provided"}</p>
               </div>
             </div>
             }
@@ -111,12 +112,12 @@ export default function Form({lang, pickupDict, bookingNum}) {
                 <p className="text-gray-600">{details.booking.datetime_pickup.split("T")[0]}{'\u00A0'}{'\u00A0'}{'\u00A0'}{details.booking.datetime_pickup.split("T")[1]}</p>
               </div>
             </div>
-            {details.duration >= 1 &&
+            {details.duration !== "00:00:00" &&
             <div className="flex items-center space-x-3">
               <Timer className="w-6 h-6 text-stone-700" />
               <div>
                 <p className="font-medium">{pickupDict.duration}</p>
-                <p className="text-gray-600">{details.duration} {details.duration ==1 ? pickupDict.hour : pickupDict.hours}</p>
+                <p className="text-gray-600">{parseInt(details.duration.split(":")[0])} {parseInt(details.duration.split(":")[0]) == 1 ? pickupDict.hour : pickupDict.hours}</p>
               </div>
             </div>
             }
