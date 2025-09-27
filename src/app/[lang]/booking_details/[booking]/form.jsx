@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { ArrowLeft, Calendar, MapPin, Phone, User } from "lucide-react"
+import { ArrowLeft, Calendar, MapPin, Phone, User, Mail } from "lucide-react"
 import { MapPinIcon} from "@heroicons/react/24/solid"
 import { Timer } from 'lucide-react'
 import Loading from '@/app/loading'
@@ -21,7 +21,6 @@ export default function Form({lang, pickupDict, bookingNum}) {
       if(response.status === 200){
         const data = await response.json()
         setDetails(data[0]);
-        console.log(data[0]);
         setIsLoading(false);
       }else if(response.status === 404){
         setIsLoading(false);
@@ -90,7 +89,7 @@ export default function Form({lang, pickupDict, bookingNum}) {
               <Phone className="w-5 h-5 text-gray-700" />
               <div>
                 <p className="font-medium">{pickupDict.phone}</p>
-                <p className="text-gray-600">{details.booking.phone || "Not provided"}</p>
+                <p className="text-gray-600">{details.booking.phone_number || "Not provided"}</p>
               </div>
             </div>
             }
