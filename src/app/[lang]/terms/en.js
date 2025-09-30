@@ -56,7 +56,7 @@ export default function En() {
                 </h2>
                 <p className="my-3 text-slate-700 leading-relaxed">
                     These Terms and Conditions ("Terms") set out the rules for all reservations made via the website
-                    <strong> barcelonacitytaxi.com</strong> ("Website"), which is owned and managed by Barcelona City Taxi
+                    <strong> quickpickups.es</strong> ("Website"), which is owned and managed by Barcelona City Taxi
                     ("we", "our", "us"). By placing a booking or using our services, you acknowledge and accept these Terms.
                 </p>
                 <p className="my-3 text-slate-700">For the purposes of these Terms:</p>
@@ -401,7 +401,7 @@ export default function En() {
                 <p className="my-3 text-slate-700">
                     All materials on our website—including text, images, logos, icons, and videos—are owned by us or our content
                     providers. You may not copy, distribute, modify, or publish any content without prior written consent. For
-                    permission requests, contact info@barcelonacitytaxi.com.
+                    permission requests, contact info@quickpickups.es.
                 </p>
 
                 <h3 className="my-2 text-xl font-bold text-slate-900">9.2 Trademarks</h3>
@@ -452,7 +452,7 @@ export default function En() {
                     <li className="my-3">Withdraw consent for data processing</li>
                 </ul>
                 <p className="my-3 text-slate-700">
-                    To exercise these rights, contact info@barcelonacitytaxi.com. See our Privacy Policy for more details.
+                    To exercise these rights, contact info@quickpickups.es. See our Privacy Policy for more details.
                 </p>
 
                 <h3 className="my-2 text-xl font-bold text-slate-900">10.4 Cookies</h3>

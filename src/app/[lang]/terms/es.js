@@ -56,7 +56,7 @@ export default function Es() {
               <p className="my-3 text-slate-700 leading-relaxed">
                 Estos Términos y Condiciones ("Términos") establecen las reglas para todas las reservas realizadas a
                 través del sitio web
-                <strong> barcelonacitytaxi.com</strong> ("Sitio Web"), que es propiedad y está gestionado por Barcelona
+                <strong> quickpickups.es</strong> ("Sitio Web"), que es propiedad y está gestionado por Barcelona
                 City Taxi ("nosotros", "nuestro", "nos"). Al realizar una reserva o utilizar nuestros servicios, usted
                 reconoce y acepta estos Términos.
               </p>
@@ -416,7 +416,7 @@ export default function Es() {
                 Todos los materiales en nuestro sitio web—incluyendo texto, imágenes, logotipos, iconos y videos—son
                 propiedad nuestra o de nuestros proveedores de contenido. No puede copiar, distribuir, modificar o
                 publicar ningún contenido sin consentimiento previo por escrito. Para solicitudes de permisos, contacte
-                info@barcelonacitytaxi.com.
+                info@quickpickups.es.
               </p>
 
               <h3 className="my-2 text-xl font-bold text-slate-900">9.2 Marcas Comerciales</h3>
@@ -467,7 +467,7 @@ export default function Es() {
                 <li className="my-3">Retirar el consentimiento para el procesamiento de datos</li>
               </ul>
               <p className="my-3 text-slate-700">
-                Para ejercer estos derechos, contacte info@barcelonacitytaxi.com. Vea nuestra Política de Privacidad
+                Para ejercer estos derechos, contacte info@quickpickups.es. Vea nuestra Política de Privacidad
                 para más detalles.
               </p>
 
