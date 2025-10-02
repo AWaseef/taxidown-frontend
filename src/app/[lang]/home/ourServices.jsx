@@ -163,7 +163,7 @@ export default function OurServices({ lang }) {
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="flex justify-center flex-wrap gap-6 sm:gap-8 lg:gap-10 w-full -mx-3"
+          className="flex justify-center items-center flex-wrap gap-6 sm:gap-8 lg:gap-10 w-full "
         >
           {t.services.map((service, index) => (
             <ServiceCard key={index} lang={lang} service={service} variants={itemVariants} />
