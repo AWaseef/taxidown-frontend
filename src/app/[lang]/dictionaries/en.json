@@ -159,6 +159,9 @@
     "childern_seats":"Children seats",
     "email": "Email",
     "booking": "Booking",
-    "notFound": "This page could not be found."
+    "notFound": "This page could not be found.", 
+    "seats" : "seats",
+    "seat_req" : "Seating Requirements",
+    "service" : "Service"
   }
 }
