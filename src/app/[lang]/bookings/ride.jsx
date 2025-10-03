@@ -13,7 +13,7 @@ import Link from 'next/link';
 import { Timer } from 'lucide-react';
 
 
-export default function Ride({pickupText, destinationText, hour, hours, durationText, pickup, destination, date, time, price, status, vehicle, id, ride, pickupCoords, dropCoords, duration}) {
+export default function Ride({pickupText, destinationText, hour, hours, durationText, pickup, destination, date, time, price, status, vehicle, id, ride, pickupCoords, dropCoords, duration, number}) {
   const [showCancel, setShowCancel] = useState(false);
 
   const [cancel, setCancel] = useState(false);
@@ -58,8 +58,10 @@ export default function Ride({pickupText, destinationText, hour, hours, duration
         </div>
       </div> 
     }
-    <div className="flex flex-col sm:flex-row max-w-5xl mx-auto bg-white rounded-2xl shadow sm:p-10 p-2 py-5 border border-gray-200 w-[90%]  max-w-[90%]">
-      <div className='flex max-w-5xl mx-auto bg-white rounded-2xl w-full sm:w-[90%]'>
+    <div className=" max-w-5xl mx-auto bg-white rounded-2xl shadow sm:p-10 p-2 py-5 border border-gray-200 w-[90%]  max-w-[90%] flex flex-col sm:flex-row">
+    <div className='flex flex-col w-full sm:w-[90%]'>
+    <h3 className="ml-10 md:ml-18 lg:ml-20 text-[18px] font-bold mb-2">Booking #{number}</h3>
+      <div className='flex max-w-5xl mx-auto bg-white rounded-2xl w-full'>
       <div className="flex flex-col items-center w-24 relative">
         <div className="text-center mb-2">
         </div>
@@ -107,6 +109,7 @@ export default function Ride({pickupText, destinationText, hour, hours, duration
       </div>
 
       </div>
+      </div>
       <div className='relative flex sm:flex-col justify-between items-center min-w-max px-7 mt-3 gap-3'>
       {
           status == "Pending" &&
@@ -118,7 +121,6 @@ export default function Ride({pickupText, destinationText, hour, hours, duration
           >
             <EllipsisVerticalIcon className="w-6 h-6" />
           </button>
-          
 
           {/* Cancel button shown conditionally */}
           {showCancel && (
@@ -143,7 +145,6 @@ export default function Ride({pickupText, destinationText, hour, hours, duration
            <p className={`font-semibold text-[17px] ${getStatusColor()}`}>{status}</p>
         </div>
         
-        
         <div className='flex items-center'>
             <LucideDollarSign size={25} className=" text-green-900 w-4" />
             {price ?
@@ -154,7 +155,6 @@ export default function Ride({pickupText, destinationText, hour, hours, duration
             }
         </div>
       </div>
-
     </div>
     </>
   )

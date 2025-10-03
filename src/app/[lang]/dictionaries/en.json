@@ -14,7 +14,8 @@
     "contactUs": "Contact us", 
     "bookingTitle": "Bookings",
     "logoutTitle": "Logout", 
-    "LogoutSuccessful": "Logout successful."
+    "LogoutSuccessful": "Logout successful.",
+    "choose_service": "Or Choose One of Our Services"
     
   },"ride":{
     "undetermined":"Price Determined on Call",
@@ -149,6 +150,18 @@
     "hourPrice": "Price Per Hour",
     "duration": "Trip Duration",
     "hour": "hour",
-    "hours": "hours"
+    "hours": "hours", 
+    "services" : "Choose one of our services",
+    "ourServices": "Our Services", 
+    "luggage":"Luggage", 
+    "flight": "Flight Number",
+    "save": "Save",
+    "childern_seats":"Children seats",
+    "email": "Email",
+    "booking": "Booking",
+    "notFound": "This page could not be found.", 
+    "seats" : "seats",
+    "seat_req" : "Seating Requirements",
+    "service" : "Service"
   }
 }

@@ -35,7 +35,6 @@ export default function DriverProfessionals({ path, title, content, flip }) {
 
         <div className="w-full md:w-1/2 text-center md:text-left">
           <div className="flex items-center justify-center md:justify-start mb-4">
-            <UserCheck className="w-8 h-8 text-black mr-2" />
             <h2 className="text-4xl font-bold">{title}</h2>
           </div>
           <p className="text-gray-700 mb-6">{content}</p>

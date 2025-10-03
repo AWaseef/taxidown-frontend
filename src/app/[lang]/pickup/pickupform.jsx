@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect, useRef } from "react" // Fixed import syntax
 import { MapPinIcon, ClockIcon, TruckIcon, CalendarIcon } from "@heroicons/react/24/solid"
-import { MessageCircleMore, ArrowLeft } from "lucide-react";
+import { MessageCircleMore, ArrowLeft, Mail } from "lucide-react";
 import mapboxgl from "mapbox-gl"
 import "mapbox-gl/dist/mapbox-gl.css"
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css"
@@ -12,9 +12,9 @@ import { cn } from "@/lib/utils"
 import { format } from "date-fns"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Minus, Plus, User, Baby } from "lucide-react";
+import { Minus, Plus, User, Baby, Luggage, PlaneTakeoff } from "lucide-react";
 import { redirect, useRouter } from "next/navigation";
-import { Loader2Icon } from "lucide-react";
+import { Loader2Icon, Pin } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import PickupDetailsPage from "./pickup_details";
 import PickupDetails from "./pickup_details";
@@ -23,9 +23,11 @@ import { Phone } from "lucide-react";
 import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
+import PhoneInput ,{isValidPhoneNumber, parsePhoneNumber } from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import { Timer } from "lucide-react";
+import Child from "./child";
+import { Plane } from "lucide-react";
 
 const schema = z.object({
   phone: z
@@ -66,6 +68,7 @@ export default function PickupFor({
     return param !== null ? param === "true" : true;
   });
   const [pickupQuery, setPickupQuery] = useState(searchParams.get("pickup") || "")
+  const service = searchParams.get("service") || "";
   const [pickupID, setPickupID] = useState("")
   const [pickupResults, setPickupResults] = useState([])
   const [destinationQuery, setDestinationQuery] = useState(searchParams.get("destination") || "")
@@ -95,14 +98,13 @@ export default function PickupFor({
   const [returnDate, setReturnDate] = useState(null);
   const [returnTime, setReturnTime] = useState("");
 
-  const [showDateTime, setShowDateTime] = useState(false)
+  const [isReturn, setIsReturn] = useState(false)
 
   const [duration, setDuration] = useState(1);
 
   const [adults, setAdults] = useState(2);
   const [children, setChildren] = useState(0);
-
-  const [isReturn, setIsReturn] = useState(false);
+  const [luggage, setLuggage] = useState(0);
 
   const pickupRef = useRef(null)
   const destinationRef = useRef(null)
@@ -118,9 +120,21 @@ export default function PickupFor({
   const [pickup, setPickup] = useState(null)
   const [destinationCoords, setDestinationCoords] = useState(null);
   
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState("+34");
 
   const formRef = useRef(null);
+
+  const [email, setEmail] = useState("");
+  const [validEmail, setValidEmail] = useState(true);
+
+  const [flight, setFlight] = useState("")
+
+  const [isValid, setIsValid] = useState(false);
+
+
+  function isValidEmail(email) {
+    return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/i.test(email);
+  }
 
     // --------- utility: find nearest scrollable ancestor --------------
     const getScrollableParent = (el) => {
@@ -218,15 +232,16 @@ export default function PickupFor({
     }
   }
 
-  // Get GPS location
-  /*useEffect(() => {
+  const getLocation = (setCoords, query, setID)=>{
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((pos) => {
         const coords = [pos.coords.longitude, pos.coords.latitude]
         setCenter(coords)
+        setCoords(coords)
+        reverseGeocode(coords, query, setID)
       })
     }
-  }, [isOneWay])*/
+  }
 
   useEffect(() => {
     if (!mapContainer.current || mapRef.current) return
@@ -307,6 +322,9 @@ export default function PickupFor({
     return () => clearTimeout(timeoutId)
   }, [destinationQuery])
 
+  const wrapperRef = useRef(null);
+  const destinationWrapperRef = useRef(null);
+
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (pickupRef.current && !pickupRef.current.contains(e.target)) {
@@ -314,6 +332,12 @@ export default function PickupFor({
       }
       if (destinationRef.current && !destinationRef.current.contains(e.target)) {
         setShowDestinationResults(false)
+      }
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+        setShowOption(false);
+      }
+      if (destinationWrapperRef.current && !destinationWrapperRef.current.contains(e.target)) {
+        setShowCurrentDest(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside)
@@ -393,8 +417,12 @@ export default function PickupFor({
     e.preventDefault();
     setError("");
     setButtonLoading(true);
-    
-    if (!pickupQuery  || !selectedDate || !selectedTime || !selectedFleetID || !phone) {
+    let localNumber = "";
+    if (typeof phone === "string" && phone.trim() !== "") {
+      const phoneNumber = parsePhoneNumber(phone) ;
+      localNumber = phoneNumber?.nationalNumber || "";
+    }
+    if (!pickupQuery  || !selectedDate || !selectedTime || !selectedFleetID || (!localNumber && !email)) {
       setError(`${pickdict.fillFields}`);
       scrollToTop();
       setButtonLoading(false);
@@ -404,7 +432,7 @@ export default function PickupFor({
       scrollToTop();
       setButtonLoading(false);
       return;
-    }else if(showDateTime && (!returnDate || !returnTime)){
+    }else if(isReturn && (!returnDate || !returnTime)){
         setError(`${pickdict.fillFields}`);
         scrollToTop();
         setButtonLoading(false);
@@ -425,10 +453,18 @@ export default function PickupFor({
         return;
       }
     }
-    const isValid = await trigger("phone");
-    if(!isValid){ 
+
+    if((!email && !localNumber )){ 
       setButtonLoading(false);
       return;
+    }else if(localNumber){
+      setIsValid(await trigger("phone"));
+      if(!isValid){
+        setButtonLoading(false);
+        return;
+      }
+    }else{
+      setPhone("")
     }
     setError("");
     try {
@@ -436,12 +472,16 @@ export default function PickupFor({
         pickup_coordinates: pickup,
         id_vehicle_category: selectedFleetID,
         datetime_pickup: `${selectedDate}T${selectedTime}:00`,
+        num_adult_seats: adults
       };
+
+      if(childSeats)
+        body.child_seats = childSeats;
 
       if(isOneWay)
         body.dropoff_coordinates = destinationCoords
     
-      if (showDateTime) {
+      if (isReturn) {
         body.datetime_return = `${returnDate}T${returnTime}:00`;
       }
 
@@ -514,9 +554,29 @@ export default function PickupFor({
     }
   }
 
+  const [childSeats, setChildSets] = useState([]);
+  const [childVisibility, setChildVisiblity] = useState(false);
+
+  useEffect(()=>{
+    console.log(childSeats)
+  }, [childSeats])
+
+  const [showOption, setShowOption] = useState(false);
+  const [showCurrentDest, setShowCurrentDest] = useState(false);
+
+  const getservices = ()=>{
+    const services = {
+      service: service
+    }
+    if(flight)
+      services.Flight_Number = flight;
+
+    return services
+  }
   
   return (
     <>
+    <Child isVisible={childVisibility} visibility={setChildVisiblity} setChildSets={setChildSets} setTotal={setChildren} saveTitle={pickdict.save} seatsTitle={pickdict.childern_seats}/>
     {estimatedPrice ?
       <div className="mb-4 relative ">
       <Button variant="ghost" size="md" className={`bg-white p-2 lg:bg-transparent z-500 absolute top-0 left-2 cursor-pointer mt-16 lg:ml-10 text-md hover:border-black`} onClick={()=>{setEstimatedPrice(null); setButtonLoading(false);}}>
@@ -528,7 +588,7 @@ export default function PickupFor({
     <div className={`relative flex flex-col-reverse lg:flex-row ${estimatedPrice? "mt-15 lg:mt-25": "mt-15 lg:mt-20 "} lg:gap-10 lg:mx-15 lg:mb-10 h-max overflow-y-auto lg:min-h-[82%] `}>
     {estimatedPrice ?
     <div className="relative container w-max">
-      <PickupDetails pickupDict={pickdict} pickup={pickupQuery} destination={destinationQuery} pickupCoords={pickup} destinationCoords={destinationCoords} phone={phone} pickupDate={selectedDate} pickupTime={selectedTime} price={isOneWay ? estimatedPrice[0] : estimatedPrice} returnPrice={isOneWay ? estimatedPrice[1] : null} numAdultSeats={adults} numChildSeats={children} customerNote={comment} returnDate={returnDate} returnTime={returnTime} vehicleID={selectedFleetID} vehicleCategory={selectedFleetValue} duration={!isOneWay ? duration : null} login = {login} signup={signup} lang={lang}/>
+      <PickupDetails pickupDict={pickdict} pickup={pickupQuery} destination={destinationQuery} pickupCoords={pickup} destinationCoords={destinationCoords} phone={phone ? phone: null} email={email} pickupDate={selectedDate} pickupTime={selectedTime} price={isOneWay ? estimatedPrice[0] : estimatedPrice} returnPrice={isOneWay ? estimatedPrice[1] : null} numAdultSeats={adults} numChildSeats={childSeats} customerNote={comment} returnDate={isReturn ? returnDate: null} returnTime={returnTime} vehicleID={selectedFleetID} vehicleCategory={selectedFleetValue} duration={!isOneWay ? duration : null} services ={getservices()} login = {login} signup={signup} lang={lang}/>
     </div>
     :
     <form ref={formRef} className="relative inset-0 bg-white w-[100%] flex mt-[-20] lg:mt-0 lg:pt-15 lg:p-8 lg:w-max flex-col items-center text-black h-max py-10 rounded-2xl shadow-custom">
@@ -584,13 +644,14 @@ export default function PickupFor({
           }
         </div>
         <div className="flex-1 space-y-4">
-          <div ref={pickupRef} className="relative w-full max-w-[95%]">
-            <div className={`relative mb-[20px] ${!validPickup ? "border-red-500" : ""}`}>
+          <div ref={pickupRef} className="relative w-full max-w-[95%] mb-0">
+            <div className={`relative mb-4 ${!validPickup ? "border-red-500" : ""}`}>
               <input
                 type="text"
                 id="pickup"
                 className="border-b-2 p-2 border-stone-600 w-full outline-none"
                 value={pickupQuery}
+                onFocus={() => setShowOption(true)}
                 onChange={(e) => {
                   setPickupID("")
                   setPickupQuery(e.target.value)
@@ -610,7 +671,19 @@ export default function PickupFor({
               >
                 <MapPinIcon className={`h-5 w-5 ${isPickingPickup ? "w-7 h-7 text-green-700 bg-green-200 rounded-full p-1" : "text-gray-500 hover:text-green-700"}`} />
               </button>
+              {showOption && !showPickupResults && (
+                <div ref={wrapperRef} className="absolute left-0 right-0 mt-1 bg-[#fcfcfa] border border-gray-300 rounded shadow w-full z-10 max-h-50 overflow-auto text-black">
+                  <button
+                    type="button"
+                    onClick={()=>{getLocation(setPickup, setPickupQuery, setPickupID); setShowOption(false);}}
+                    className="cursor-pointer w-full border-none text-left px-4 py-2 hover:bg-gray-100 transition flex items-center"
+                  >
+                    <Pin strokeWidth={2.5} className="w-4 h-4 text-red-500 mr-2 "/> Choose your Current Location
+                  </button>
+                </div>
+              )}
             </div>
+
             {!validPickup && (
               <div className="text-center m-auto mb-3 flex items-center justify-center text-red-600 w-full">
                 {pickdict.chooseValidP}
@@ -625,14 +698,14 @@ export default function PickupFor({
                       key={idx}
                       onClick={() => {
                         setPickupID(place.id)
-                        setPickupQuery(place.place_name)
+                        setPickupQuery(place.description)
                         setShowPickupResults(false)
                         setValidPickup(true)
-                        forwardGeocode(place.place_name, setPickup)
+                        forwardGeocode(place.description, setPickup)
                       }}
                       className="p-2 hover:bg-gray-100 cursor-pointer text-black"
                     >
-                      {place.place_name}
+                      {place.description}
                     </div>
                   ))}
                 </div>
@@ -640,14 +713,15 @@ export default function PickupFor({
           </div>
 
           {isOneWay && (
-            <div ref={destinationRef} className="relative w-full max-w-[95%]">
+            <div ref={destinationRef} className="mb-7 relative w-full max-w-[95%]">
               
-              <div className={`relative mb-[20px] ${!validDestination ? "border-red-500" : ""}`}>
+              <div ref={destinationWrapperRef} className={`relative mb-[20px] ${!validDestination ? "border-red-500" : ""}`}>
                 <input
                   type="text"
                   id="destination"
                   className="border-b-2 p-2 border-stone-600 w-full outline-none"
                   value={destinationQuery}
+                  onFocus={()=>{setShowCurrentDest(true)}}
                   onChange={(e) => {
                     setDestinationID("")
                     setDestinationQuery(e.target.value)
@@ -667,6 +741,18 @@ export default function PickupFor({
                 >
                   <MapPinIcon className={`h-5 w-5 ${isPickingDestination ? "h-7 w-7 text-red-600 bg-red-100 rounded-full p-1" : "text-gray-500 hover:text-red-500"}`} />
                 </button>
+
+                {showCurrentDest && !showDestinationResults && (
+                <div ref={wrapperRef} className="absolute left-0 right-0 mt-1 bg-[#fcfcfa] border border-gray-300 rounded shadow w-full z-10 max-h-50 overflow-auto text-black ">
+                  <button
+                    type="button"
+                    onClick={()=>{getLocation(setDestinationCoords, setDestinationQuery, setDestinationID); setShowCurrentDest(false);}}
+                    className="cursor-pointer w-full border-none text-left px-4 py-2 hover:bg-gray-100 transition flex items-center"
+                  >
+                    <Pin strokeWidth={2.5} className="w-4 h-4 text-red-500 mr-2 "/> Choose your Current Location
+                  </button>
+                </div>
+              )}
               </div>
               {!validDestination && (
                 <div className="text-center m-auto mb-3 flex items-center justify-center text-red-600 w-full">
@@ -681,14 +767,14 @@ export default function PickupFor({
                       key={idx}
                       onClick={() => {
                         setDestinationID(place.id)
-                        setDestinationQuery(place.place_name)
+                        setDestinationQuery(place.description)
                         setShowDestinationResults(false)
                         setValidDestination(true) 
-                        forwardGeocode(place.place_name, setDestinationCoords) 
+                        forwardGeocode(place.description, setDestinationCoords) 
                       }}
                       className="p-2 hover:bg-gray-100 cursor-pointer"
                     >
-                      {place.place_name}
+                      {place.description}
                     </div>
                   ))}
                 </div>
@@ -798,13 +884,13 @@ export default function PickupFor({
         }
         {isOneWay && 
         <div className="w-90 max-w-[85%] flex items-center space-x-2 mt-5">
-          <Checkbox id="schedule" checked={showDateTime} className="w-5 h-5" onCheckedChange={(e)=>{setShowDateTime(e); setReturnDate(null); setReturnTime("");}} />
+          <Checkbox id="schedule" checked={isReturn} className="w-5 h-5" onCheckedChange={(e)=>{setIsReturn(e); setReturnDate(null); setReturnTime("");}} />
           <label htmlFor="schedule" className="text-lg text-stone-800">
             {pickdict.addReturn}
           </label>
         </div>
         }
-        {showDateTime &&
+        {isReturn &&
         <div className="grid grid-cols-2 gap-4 w-90 max-w-[85%] mt-2">
         <div className="w-full">
           <label className="block text-sm font-medium text-stone-800 mb-1">{pickdict.returnDate}</label>
@@ -847,7 +933,7 @@ export default function PickupFor({
         </div>
       </div>
       }
-      <div className="flex justify-center gap-3 md:gap-6 w-90 max-w-[85%] mt-5">
+      <div className="flex justify-between  md:gap-6 w-90 max-w-[88%] mt-5">
 
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center justify-end gap-1">
@@ -872,7 +958,6 @@ export default function PickupFor({
           </button>
         </div>
       </div>
-
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-1">
           <Baby className="w-4 h-4 md:w-5 md:h-5 text-stone-600" />
@@ -881,7 +966,7 @@ export default function PickupFor({
         <div className="flex items-center gap-1">
           <button
             type="button"
-            onClick={() => setChildren((prev) => Math.max(0, prev - 1))}
+            onClick={() => {setChildVisiblity(true)}}
             className="flex items-center justify-center w-6 h-6 md:w-7 md:h-7 border-2 rounded-sm border-stone-200 hover:bg-stone-200"
           >
             <Minus className="w-4 h-4" />
@@ -889,7 +974,7 @@ export default function PickupFor({
           <div className="w-max text-center rounded-md py-1 md:px-2">{children}</div>
           <button
             type="button"
-            onClick={() => setChildren((prev) => prev + 1)}
+            onClick={() => setChildVisiblity(true)}
             className="flex items-center justify-center w-6 h-6 md:w-7 md:h-7 border-2 rounded-sm border-stone-200 hover:bg-stone-200"
           >
             <Plus className="w-4 h-4" />
@@ -897,6 +982,32 @@ export default function PickupFor({
         </div>
       </div>
     </div>
+    {/* luggage #
+      <div className="mt-2 flex items-center justify-between w-90 max-w-[88%]">
+        <div className="flex items-center justify-end gap-1">
+          <Luggage className="w-6 h-4 md:w-5 md:h-5 text-stone-700" />
+          <div className="text-md font-bold text-stone-800">{pickdict.luggage}</div>
+        </div>
+        <div className="flex items-center gap-1">
+          <button
+            type="button"
+            onClick={() => setLuggage((prev) => Math.max(0, prev - 1))}
+            className="flex items-center justify-center w-6 h-6 md:w-7 md:h-7 border-2 rounded-sm border-stone-200 hover:bg-stone-200"
+          >
+            <Minus className="w-4 h-4" />
+          </button>
+          <div className="w-max text-center py-1 md:px-2">{luggage}</div>
+          <button
+            type="button"
+            onClick={() => setLuggage((prev) => prev + 1)}
+            className="flex items-center justify-center w-6 h-6 md:w-7 md:h-7 border-2 rounded-sm border-stone-200 hover:bg-stone-200"
+          >
+            <Plus className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+     */}
+    
     <div className="flex flex-col w-90 max-w-[85%] mt-5">
       <label htmlFor="phone" className="block text-sm font-medium">
         Phone
@@ -932,8 +1043,35 @@ export default function PickupFor({
       )}
     </div>
 
+    <div className={`flex items-center w-90 max-w-[85%] mt-5 mb-[2 ${!validEmail ? 'red-wrapper':""}`}>
+    <Mail className="h-6 w-6 text-orange-600" />
+      <input type="text" 
+          name = "email"
+          onChange = {(e)=>setEmail(e.target.value)}
+          value = {email}
+          id="email"
+          className="border-b-2 p-2 border-stone-600 w-full outline-none resize-none overflow-hidden"
+          placeholder={`${signup.email}`}
+          required
+      />
+      {!validEmail && <span className='text-center m-auto flex items-center justify-center text-red-600 w-full'>Invalid Email</span>}
+    </div> 
+    {(service === "Airport Transfers" || service === "Traslados al aeropuerto") &&
+    <div className={`flex items-center w-90 max-w-[85%] mt-5 mb-[2]`}>
+    <Plane className="h-6 w-6 text-orange-600" />
+      <input type="text" 
+          name = "flight"
+          onChange = {(e)=>setFlight(e.target.value)}
+          value = {flight}
+          id="flight"
+          className="border-b-2 p-2 border-stone-600 w-full outline-none resize-none overflow-hidden"
+          placeholder={`${pickdict.flight} *`}
+          required
+      />
+      </div>
+    }
     <div className={`flex items-center w-90 max-w-[85%] mt-5 mb-[20px]`}>
-      <MessageCircleMore className="h-6 w-6 text-gray-600" />
+      <MessageCircleMore className="h-6 w-6 text-orange-600" />
       <textarea
         id="comment"
         className="border-b-2 p-2 border-stone-600 w-full outline-none resize-none overflow-hidden"

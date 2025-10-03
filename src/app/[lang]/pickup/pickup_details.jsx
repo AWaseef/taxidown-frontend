@@ -15,7 +15,7 @@ import PickLogin from "../home/pick_login"
 import SuccessModal from "../home/modal"
 import { Timer } from "lucide-react"
 
-export default function PickupDetails({pickupDict, pickup, destination, pickupCoords, destinationCoords, phone, pickupDate, pickupTime, price, returnPrice, numAdultSeats, numChildSeats, customerNote, returnDate,  returnTime, vehicleID, vehicleCategory, login, signup, lang, duration} ) {
+export default function PickupDetails({pickupDict, pickup, destination, pickupCoords, destinationCoords, phone, email, pickupDate, pickupTime, price, returnPrice, numAdultSeats, numChildSeats,services ,customerNote, returnDate,  returnTime, vehicleID, vehicleCategory, login, signup, lang, duration} ) {
   const router = useRouter();
 
   const [IsLogin, setLogin] = useState(false);
@@ -43,11 +43,13 @@ export default function PickupDetails({pickupDict, pickup, destination, pickupCo
     price: price,
     returnPrice: returnPrice,
     numAdultSeats: numAdultSeats,
-    numChildSeats: numChildSeats,
+    child_seats: numChildSeats,
     returnDate: returnDate,
     returnTime: returnTime,
     customerNote: customerNote,
-    duration:duration
+    duration:duration,
+    services:services, 
+    email:email
   })
 
   const [paymentCash, setPaymentCash] = useState("cash");
@@ -114,6 +116,7 @@ export default function PickupDetails({pickupDict, pickup, destination, pickupCo
     requestAnimationFrame(() => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
+
     
     const body = {
       datetime_pickup: `${pickupData.pickupDate}T${pickupData.pickupTime}:00`,
@@ -121,10 +124,16 @@ export default function PickupDetails({pickupDict, pickup, destination, pickupCo
       pickup_location:pickupData.pickup,
       phone_number: pickupData.phone,
       num_adult_seats: pickupData.numAdultSeats,
-      num_child_seats: pickupData.numChildSeats,
+      child_seats: pickupData.child_seats,
       id_vehicle_category: pickupData.vehicleID,
-      customer_note: pickupData.customerNote
+      customer_note: pickupData.customerNote,
+      services: pickupData.services
     }
+
+    if(email){
+      body.email = pickupData.email
+    }
+    
     if(pickupData.destination){
         body.dropoff_coordinates = pickupData.destinationCoords;
         body.dropoff_location = pickupData.destination;
@@ -141,6 +150,8 @@ export default function PickupDetails({pickupDict, pickup, destination, pickupCo
         credentials: 'include',
         body: JSON.stringify(body),
     })
+
+    console.log(body)
     const data = await response.json();
     if(response.status === 201){
         const totalPrice = pickupData.returnPrice
@@ -148,7 +159,6 @@ export default function PickupDetails({pickupDict, pickup, destination, pickupCo
         : Number(pickupData.price);
 
         if(!guest){
-          console.log("hahahaaaaaaaaaaa")
           setShowSuccess(true)
           setButtonLoading(false);
           setType('success');
@@ -156,8 +166,7 @@ export default function PickupDetails({pickupDict, pickup, destination, pickupCo
             router.push(`/${lang}/bookings`);
         }, 4000);
         }else{
-          console.log("Nooooooooo")
-          router.push(`/${lang}/pickup-details?pickup=${pickupData.pickup}&destination=${pickupData.destination}&phone=${pickupData.phone}&pickupDate=${pickupData.pickupDate}&pickupTime=${pickupData.pickupTime}&price=${totalPrice}&returnDate=${pickupData.returnDate}&returnTime=${pickupData.returnTime}&vehicle=${pickupData.vehicleCategory}&duration=${duration}`)
+          router.push(`/${lang}/pickup-details?pickup=${pickupData.pickup}&destination=${pickupData.destination}&phone=${pickupData.phone}&pickupDate=${pickupData.pickupDate}&pickupTime=${pickupData.pickupTime}&price=${totalPrice}&returnDate=${pickupData.returnDate}&returnTime=${pickupData.returnTime}&vehicle=${pickupData.vehicleCategory}&duration=${duration}&booking=${data.message.booking_number}`)
         }
     }else if (response.status == 429){
         console.log(data);
@@ -232,7 +241,7 @@ export default function PickupDetails({pickupDict, pickup, destination, pickupCo
             }
             </div>
            </div>
-            
+            {phone ?
             <div className="flex items-center space-x-3">
               <Phone className="w-5 h-5 text-gray-700" />
               <div>
@@ -240,7 +249,7 @@ export default function PickupDetails({pickupDict, pickup, destination, pickupCo
                 <p className="text-gray-600">{pickupData.phone || "Not provided"}</p>
               </div>
             </div>
-
+            :<></>}
             <div className="flex items-center space-x-3">
               <Calendar className="w-5 h-5 text-gray-700" />
               <div>
@@ -258,7 +267,7 @@ export default function PickupDetails({pickupDict, pickup, destination, pickupCo
             </div>
             }
             
-            {pickupData.returnPrice ?
+            {pickupData.returnDate ?
             <div className="flex items-center space-x-3">
                 <Calendar className="w-5 h-5 text-gray-700" />
                 <div>
