@@ -20,7 +20,7 @@ export default function GetFleets() {
   return (
     <>
     {Array.isArray(fleets) && fleets &&
-    <div className='text-white bg-[url(/car2.png)] h-[50vh] min-h-max bg-cover bg-center w-full relative flex flex-col items-center justify-center pt-20 '>
+    <div className='text-white bg-[url(/car2.png)] min-h-[50vh] h-auto bg-cover bg-center w-full relative flex flex-col items-center justify-center pt-20 '>
         <div className="absolute inset-0 bg-black/70 z-0"></div>
         <div className="z-10 flex flex-col items-center">
             <h1 className='text-[45px] text-white font-bold'>Our Fleet</h1>     

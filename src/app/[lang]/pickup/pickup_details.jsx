@@ -15,7 +15,7 @@ import PickLogin from "../home/pick_login"
 import SuccessModal from "../home/modal"
 import { Timer } from "lucide-react"
 
-export default function PickupDetails({pickupDict, pickup, destination, pickupCoords, destinationCoords, phone, email, pickupDate, pickupTime, price, returnPrice, numAdultSeats, numChildSeats,services ,customerNote, returnDate,  returnTime, vehicleID, vehicleCategory, login, signup, lang, duration} ) {
+export default function PickupDetails({pickupDict, pickup, destination, pickupCoords, destinationCoords, phone, email, pickupDate, pickupTime, price, returnPrice, numAdultSeats, numChildSeats,services ,customerNote, returnDate,  returnTime, vehicleID, vehicleCategory, numLuggage, login, signup, lang, duration} ) {
   const router = useRouter();
 
   const [IsLogin, setLogin] = useState(false);
@@ -48,7 +48,8 @@ export default function PickupDetails({pickupDict, pickup, destination, pickupCo
     returnTime: returnTime,
     customerNote: customerNote,
     duration:duration,
-    services:services, 
+    services:services,
+    numLuggage: numLuggage,
     email:email
   })
 
@@ -127,6 +128,7 @@ export default function PickupDetails({pickupDict, pickup, destination, pickupCo
       child_seats: pickupData.child_seats,
       id_vehicle_category: pickupData.vehicleID,
       customer_note: pickupData.customerNote,
+      num_luggage: pickupData.numLuggage,
       services: pickupData.services
     }
 
@@ -166,7 +168,7 @@ export default function PickupDetails({pickupDict, pickup, destination, pickupCo
             router.push(`/${lang}/bookings`);
         }, 4000);
         }else{
-          router.push(`/${lang}/pickup-details?pickup=${pickupData.pickup}&destination=${pickupData.destination}&phone=${pickupData.phone}&pickupDate=${pickupData.pickupDate}&pickupTime=${pickupData.pickupTime}&price=${totalPrice}&returnDate=${pickupData.returnDate}&returnTime=${pickupData.returnTime}&vehicle=${pickupData.vehicleCategory}&duration=${duration}&booking=${data.message.booking_number}`)
+          router.push(`/${lang}/booking_details/${data.message.booking_number}`)
         }
     }else if (response.status == 429){
         console.log(data);
