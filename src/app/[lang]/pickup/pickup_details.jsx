@@ -14,8 +14,11 @@ import {
 import PickLogin from "../home/pick_login"
 import SuccessModal from "../home/modal"
 import { Timer } from "lucide-react"
+import { Plus } from "lucide-react"
+import { X } from "lucide-react"
+import { Equal } from "lucide-react"
 
-export default function PickupDetails({pickupDict, pickup, destination, pickupCoords, destinationCoords, phone, email, pickupDate, pickupTime, price, returnPrice, numAdultSeats, numChildSeats,services ,customerNote, returnDate,  returnTime, vehicleID, vehicleCategory, login, signup, lang, duration} ) {
+export default function PickupDetails({pickupDict, pickup, destination, pickupCoords, destinationCoords, phone, email, pickupDate, pickupTime, price, returnPrice, numAdultSeats, numChildSeats,services ,customerNote, returnDate,  returnTime, vehicleID, vehicleCategory, login, signup, lang, duration, numRides} ) {
   const router = useRouter();
 
   const [IsLogin, setLogin] = useState(false);
@@ -241,7 +244,8 @@ export default function PickupDetails({pickupDict, pickup, destination, pickupCo
             }
             </div>
            </div>
-            {phone ?
+
+           {phone ?
             <div className="flex items-center space-x-3">
               <Phone className="w-5 h-5 text-gray-700" />
               <div>
@@ -250,11 +254,16 @@ export default function PickupDetails({pickupDict, pickup, destination, pickupCo
               </div>
             </div>
             :<></>}
+
+            <div className="h-max w-full flex justify-between items-end rounded-lg border-gray-200">
+            <div className="flex flex-col gap-5 justify-between h-full">
+            <div>
+            
             <div className="flex items-center space-x-3">
               <Calendar className="w-5 h-5 text-gray-700" />
               <div>
                 <p className="font-medium">{pickupDict.pickTime}</p>
-                <p className="text-gray-600">{pickupData.pickupDate}{'\u00A0'}{'\u00A0'}{'\u00A0'}{pickupData.pickupTime}</p>
+                <p className="text-gray-600 ">{pickupData.pickupDate}{'\u00A0'}{'\u00A0'}{'\u00A0'}<br className="sm:hidden"/>{pickupData.pickupTime}</p>
               </div>
             </div>
             {duration &&
@@ -277,9 +286,31 @@ export default function PickupDetails({pickupDict, pickup, destination, pickupCo
             </div>
             : <></>
             }
-            <div className="w-full flex justify-between items-center pr-2 rounded-lg border-gray-200">
-              <p className="text-orange-600 text-lg font-medium">{pickupDict.totalPrice}</p>
-              <p className="text-orange-600 text-xl font-bold">€{Number(pickupData.price) + Number(pickupData.returnPrice)}</p>
+            </div>
+            <div>
+            <p className="text-orange-600 text-lg font-medium w-max">{pickupDict.totalPrice}</p>
+            </div>
+            </div>
+            <div className="grid grid-cols-[auto_auto_auto] items-center text-lg text-gray-600 p-0 m-0 gap-x-[2px] gap-y-1 h-max">
+              <p className="sm:text-sm text-xs">{numRides} {pickupDict.rides}</p>
+              <p className="text-center w-max"><X size={14} /></p>
+              <p className="sm:text-sm text-xs">€{pickupData.price}</p>
+
+              {pickupData.returnPrice ? (
+                <>
+                  <div className={`col-span-3 text-center h-fit p-0 m-0 flex justify-center`}>
+                  <Plus size={13} />
+                  </div>
+                  <p className="text-sm">{numRides} {pickupDict.returnRides}</p>
+                  <p className="text-center w-max"><X size={14} /></p>
+                  <p className="text-sm">€{pickupData.returnPrice}</p>
+                </>
+              ):<></>}
+              <div className="col-span-3 flex justify-center text-center h-max m-0 p-0">
+              <Equal size={16} />
+              </div>
+              <p className="col-span-3 flex justify-center text-center text-xl font-bold text-orange-600">€{Math.round(Number(pickupData.price)* Number(numRides) + Number(pickupData.returnPrice)* Number(numRides) )}</p>
+            </div>
             </div>
             <div>
                 <h3 className="font-bold text-gray-900 text-lg">{pickupDict.paymentMethod}</h3>
