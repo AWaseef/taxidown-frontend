@@ -130,7 +130,6 @@ export default function PickupFor({
   const [flight, setFlight] = useState("")
 
   const [isValid, setIsValid] = useState(false);
-  const [numRides, setNumRides] = useState(0)
 
 
   function isValidEmail(email) {
@@ -214,7 +213,7 @@ export default function PickupFor({
         setID(data.features[0].id)
       }
     } catch (error) {
-      console.error("Reverse geocoding failed:", error)
+     // console.error("Reverse geocoding failed:", error)
     }
   }
 
@@ -229,7 +228,7 @@ export default function PickupFor({
         setCoords(coords);
       }
     } catch (error) {
-      console.error("Forward geocoding failed:", error)
+      // console.error("Forward geocoding failed:", error)
     }
   }
 
@@ -297,7 +296,7 @@ export default function PickupFor({
         const data = await response.json()
         setPickupResults(data)
       } catch (error) {
-        console.error("Pickup autocomplete failed:", error)
+        // console.error("Pickup autocomplete failed:", error)
       }
     }
     const timeoutId = setTimeout(fetchSuggestions, 300)
@@ -316,7 +315,7 @@ export default function PickupFor({
         const data = await response.json()
         setDestinationResults(data)
       } catch (error) {
-        console.error("Destination autocomplete failed:", error)
+        // console.error("Destination autocomplete failed:", error)
       }
     }
     const timeoutId = setTimeout(fetchSuggestions, 300)
@@ -502,9 +501,7 @@ export default function PickupFor({
 
       if (res.status === 200) {
           const data = await res.json();
-          console.log(data)
-          setNumRides(data.num_rides)
-          setEstimatedPrice(data.price);
+          setEstimatedPrice(data.price.map((element)=> element * data.num_rides));
          // router.push(`/${lang}/pickup-details?pickup=${pickupQuery}&destination=${destinationQuery}&pickCoords=${pickup.join(",")}&destinationCoords=${destinationCoords.join(",")}&phone=${phone}&pickupDate=${selectedDate}&pickupTime=${selectedTime}&price=${estimatedPrice[0]}&returnPrice=${estimatePrice[1]}&adults=${adults}&childern=${children}&note=${comment}&returnDate=${returnDate}&returnTime=${returnTime}&vehicleID=${selectedFleetID}&vehicle=${selectedFleetValue}`)
       }else if(res.status === 404){
         setError(pickdict.failed);
@@ -542,7 +539,7 @@ export default function PickupFor({
                     setIsLoading(false);
                 }
             } catch (error) {
-                console.error('Fetch error:', error);
+                // console.error('Fetch error:', error);
             }
         }
     }
@@ -559,10 +556,6 @@ export default function PickupFor({
 
   const [childSeats, setChildSets] = useState([]);
   const [childVisibility, setChildVisiblity] = useState(false);
-
-  useEffect(()=>{
-    console.log(childSeats)
-  }, [childSeats])
 
   const [showOption, setShowOption] = useState(false);
   const [showCurrentDest, setShowCurrentDest] = useState(false);
@@ -591,7 +584,7 @@ export default function PickupFor({
     <div className={`relative flex flex-col-reverse lg:flex-row ${estimatedPrice? "mt-15 lg:mt-25": "mt-15 lg:mt-20 "} lg:gap-10 lg:mx-15 lg:mb-10 h-max overflow-y-auto lg:min-h-[82%] `}>
     {estimatedPrice ?
     <div className="relative container w-max">
-      <PickupDetails pickupDict={pickdict} pickup={pickupQuery} destination={destinationQuery} pickupCoords={pickup} destinationCoords={destinationCoords} phone={phone ? phone: null} email={email} pickupDate={selectedDate} pickupTime={selectedTime} price={isOneWay ? estimatedPrice[0] : estimatedPrice} returnPrice={isOneWay ? estimatedPrice[1] : null} numRides={numRides} numAdultSeats={adults} numChildSeats={childSeats} customerNote={comment} returnDate={isReturn ? returnDate: null} returnTime={returnTime} vehicleID={selectedFleetID} vehicleCategory={selectedFleetValue} duration={!isOneWay ? duration : null} services ={getservices()} login = {login} signup={signup} lang={lang}/>
+      <PickupDetails pickupDict={pickdict} pickup={pickupQuery} destination={destinationQuery} pickupCoords={pickup} destinationCoords={destinationCoords} phone={phone ? phone: null} email={email} pickupDate={selectedDate} pickupTime={selectedTime} price={isOneWay ? estimatedPrice[0] : estimatedPrice} returnPrice={isOneWay ? estimatedPrice[1] : null} numAdultSeats={adults} numChildSeats={childSeats} customerNote={comment} returnDate={isReturn ? returnDate: null} returnTime={returnTime} vehicleID={selectedFleetID} vehicleCategory={selectedFleetValue} duration={!isOneWay ? duration : null} services ={getservices()} login = {login} signup={signup} lang={lang}/>
     </div>
     :
     <form ref={formRef} className="relative inset-0 bg-white w-[100%] flex mt-[-20] lg:mt-0 lg:pt-15 lg:p-8 lg:w-max flex-col items-center text-black h-max py-10 rounded-2xl shadow-custom">
