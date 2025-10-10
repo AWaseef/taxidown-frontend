@@ -121,6 +121,7 @@
     "pickDate": "Pick a date",
     "time": "Time",
     "vehicleType": "Vehicle type",
+    "vehicle":"Vehicle",
     "addReturn": "Add Return Trip",
     "returnDate": "Return Date",
     "returnTime": "Return Time",
@@ -139,7 +140,7 @@
     "pickupLocation": "Pickup Location",
     "destination": "Destination",
     "pickTime": "Pickup Time",
-    "totalPrice": "Total Estimated Price",
+    "totalPrice": "Total Price",
     "paymentMethod": "Payment Method",
     "cash": "Cash on Delivery",
     "credit": "Credit",
@@ -161,7 +162,7 @@
     "booking": "Booking",
     "notFound": "This page could not be found.", 
     "seats" : "seats",
-    "seat_req" : "Seating Requirements",
+    "seat_req" : "Passengers",
     "service" : "Service"
   }
 }

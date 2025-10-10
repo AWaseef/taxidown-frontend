@@ -133,6 +133,8 @@ export default function PickupFor({
 
   const [isValid, setIsValid] = useState(false);
 
+  const [numRides, setNumRides] = useState(0);
+
 
   function isValidEmail(email) {
     return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/i.test(email);
@@ -222,13 +224,14 @@ export default function PickupFor({
   const forwardGeocode = async (query, setCoords) => {
     try {
       const res = await fetch(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?access_token=${mapboxgl.accessToken}`,
+        `/api/get_coords/?searchQuery=${encodeURIComponent(query)}`,
       )
-      const data = await res.json()
-      if (data.features && data.features.length > 0) {
-        const coords = data.features[0].center;
+        const data = await res.json();
+      if (data.results[0].geometry.location) {
+        const coords = [data.results[0].geometry.location.lng, data.results[0].geometry.location.lat];
         setCoords(coords);
       }
+      
     } catch (error) {
       console.error("Forward geocoding failed:", error)
     }
@@ -504,6 +507,7 @@ export default function PickupFor({
       if (res.status === 200) {
         const data = await res.json();
         setEstimatedPrice(data.price);
+        setNumRides(data.num_rides);
         // router.push(`/${lang}/pickup-details?pickup=${pickupQuery}&destination=${destinationQuery}&pickCoords=${pickup.join(",")}&destinationCoords=${destinationCoords.join(",")}&phone=${phone}&pickupDate=${selectedDate}&pickupTime=${selectedTime}&price=${estimatedPrice[0]}&returnPrice=${estimatePrice[1]}&adults=${adults}&childern=${children}&note=${comment}&returnDate=${returnDate}&returnTime=${returnTime}&vehicleID=${selectedFleetID}&vehicle=${selectedFleetValue}`)
       } else if (res.status === 404) {
         setError(pickdict.failed);
@@ -587,7 +591,7 @@ export default function PickupFor({
       <div className={`relative flex flex-col-reverse lg:flex-row ${estimatedPrice ? "mt-15 lg:mt-25" : "mt-15 lg:mt-20 "} lg:gap-10 lg:mx-15 lg:mb-10 h-max overflow-y-auto lg:min-h-[82%] `}>
         {estimatedPrice ?
           <div className="relative container w-max">
-            <PickupDetails pickupDict={pickdict} pickup={pickupQuery} destination={destinationQuery} pickupCoords={pickup} destinationCoords={destinationCoords} phone={phone ? phone : null} email={email} pickupDate={selectedDate} pickupTime={selectedTime} price={isOneWay ? estimatedPrice[0] : estimatedPrice} returnPrice={isOneWay ? estimatedPrice[1] : null} numAdultSeats={adults} numChildSeats={childSeats} customerNote={comment} returnDate={isReturn ? returnDate : null} returnTime={returnTime} vehicleID={selectedFleetID} vehicleCategory={selectedFleetValue} duration={!isOneWay ? duration : null} services={getservices()} numLuggage={luggage} login={login} signup={signup} lang={lang} />
+            <PickupDetails pickupDict={pickdict} pickup={pickupQuery} destination={destinationQuery} pickupCoords={pickup} destinationCoords={destinationCoords} phone={phone ? phone : null} email={email} pickupDate={selectedDate} pickupTime={selectedTime} price={isOneWay ? estimatedPrice[0] : estimatedPrice} returnPrice={isOneWay ? estimatedPrice[1] : null} numAdultSeats={adults} numChildSeats={childSeats} numRides={numRides} customerNote={comment} returnDate={isReturn ? returnDate : null} returnTime={returnTime} vehicleID={selectedFleetID} vehicleCategory={selectedFleetValue} duration={!isOneWay ? duration : null} services={getservices()} numLuggage={luggage} login={login} signup={signup} lang={lang} />
           </div>
           :
           <form ref={formRef} className="relative inset-0 bg-white w-[100%] flex mt-[-20] lg:mt-0 lg:pt-15 lg:p-8 lg:w-max flex-col items-center text-black h-max py-10 rounded-2xl shadow-custom">

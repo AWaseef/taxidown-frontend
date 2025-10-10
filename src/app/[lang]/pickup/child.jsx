@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Minus, Plus, X } from "lucide-react";
 
-export default function Child({ visibility, setChildSets, isVisible, setTotal, saveTitle, seatsTitle}) {
+export default function Child({ visibility, setChildSets, isVisible, setTotal, saveTitle, seatsTitle }) {
   const [seats, setSeats] = useState([]);
   const [seatCounts, setSeatCounts] = useState({});
   const [totalSeats, setTotalSeats] = useState(0);
@@ -23,7 +23,6 @@ export default function Child({ visibility, setChildSets, isVisible, setTotal, s
             initialCounts[seat.id] = 0;
           });
           setSeatCounts(initialCounts);
-
         }
       } catch (err) {
         console.error("Error fetching seats:", err);
@@ -32,13 +31,12 @@ export default function Child({ visibility, setChildSets, isVisible, setTotal, s
     fetchData();
   }, []);
 
-
   const handleIncrement = (seatId) => {
     setSeatCounts((prev) => ({
       ...prev,
       [seatId]: prev[seatId] + 1,
     }));
-    setTotalSeats(totalSeats+1)
+    setTotalSeats(totalSeats + 1);
   };
 
   const handleDecrement = (seatId) => {
@@ -47,19 +45,23 @@ export default function Child({ visibility, setChildSets, isVisible, setTotal, s
       [seatId]: Math.max(0, prev[seatId] - 1),
     }));
     const seat = seatCounts[seatId];
-    if(seat >= 1)
-      setTotalSeats(Math.max(0,totalSeats-1))
+    if (seat >= 1) setTotalSeats(Math.max(0, totalSeats - 1));
   };
 
+  // ✅ Enhanced formattedSeats to include seat_type
   const formattedSeats = Object.entries(seatCounts)
     .filter(([_, num_seats]) => num_seats > 0)
-    .map(([id, num_seats]) => ({
-      child_seat: Number(id),
-      num_seats,
-    }));
+    .map(([id, num_seats]) => {
+      const seat = seats.find((s) => s.id === Number(id));
+      return {
+        child_seat: Number(id),
+        seat_type: seat?.seat_type || "", // fallback in case missing
+        num_seats,
+      };
+    });
 
   return (
-    <div className={`${isVisible? 'visible': 'invisible'} fixed top-0 left-0 w-screen h-screen z-1000 bg-black/50 flex justify-center items-center`}>
+    <div className={`${isVisible ? "visible" : "invisible"} fixed top-0 left-0 w-screen h-screen z-1000 bg-black/50 flex justify-center items-center`}>
       <div className="relative w-120 bg-white h-60 rounded-lg px-10 py-2 min-h-max">
         <button className="cursor-pointer" onClick={() => visibility(false)}>
           <X className="absolute right-6 top-5" />
@@ -68,27 +70,23 @@ export default function Child({ visibility, setChildSets, isVisible, setTotal, s
 
         <div className="mt-8 mb-5 flex flex-col gap-4">
           {seats.map((seat) => (
-            <div
-              key={seat.id}
-              className="flex items-center justify-between gap-2"
-            > 
-            <div className="flex justify-center items-center gap-1">
-
+            <div key={seat.id} className="flex items-center justify-between gap-2">
+              <div className="flex justify-center items-center gap-1">
                 <div className="w-9 h-9 flex-shrink-0">
                   <img
-                    src={seat.seat_image || '/seat.png'}
+                    src={seat.seat_image || "/seat.png"}
                     alt="icon"
                     className="w-full h-full object-contain rounded"
                     onError={(e) => {
-                      e.currentTarget.onerror = null;          // prevent loop if fallback fails
-                      e.currentTarget.src = '/seat.png';       // leading slash => public/seat.png
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = "/seat.png";
                     }}
                   />
                 </div>
-              <div className="flex flex-col">
-                <h1 className="text-lg mr-1">{seat.seat_type}</h1>
-                <p className="text-md text-stone-500 ml-2">+€{seat.seat_cost}</p>
-              </div>
+                <div className="flex flex-col">
+                  <h1 className="text-lg mr-1">{seat.seat_type}</h1>
+                  <p className="text-md text-stone-500 ml-2">+€{seat.seat_cost}</p>
+                </div>
               </div>
               <div className="flex items-center gap-1">
                 <button
@@ -112,8 +110,15 @@ export default function Child({ visibility, setChildSets, isVisible, setTotal, s
             </div>
           ))}
         </div>
-        <div className="w-full flex justify-center ">
-          <button className="text-lg bg-black text-white cursor-pointer border-2 hover:border-black hover:bg-white hover:text-black px-5 py-2 mb-3 rounded-md" onClick={()=>{visibility(false); setChildSets(formattedSeats); setTotal(totalSeats)}}>
+        <div className="w-full flex justify-center">
+          <button
+            className="text-lg bg-black text-white cursor-pointer border-2 hover:border-black hover:bg-white hover:text-black px-5 py-2 mb-3 rounded-md"
+            onClick={() => {
+              visibility(false);
+              setChildSets(formattedSeats);
+              setTotal(totalSeats);
+            }}
+          >
             {saveTitle}
           </button>
         </div>
