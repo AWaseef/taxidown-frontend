@@ -5,17 +5,18 @@ import { useSearchParams, useRouter } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, Calendar, MapPin, Phone, User } from "lucide-react"
-import { MapPinIcon} from "@heroicons/react/24/solid"
+import { MapPinIcon } from "@heroicons/react/24/solid"
 import { Loader2Icon } from "lucide-react"
 import {
-    RadioGroup,
-    RadioGroupItem,
-  } from "@/components/ui/radio-group"
+  RadioGroup,
+  RadioGroupItem,
+} from "@/components/ui/radio-group"
 import PickLogin from "../home/pick_login"
 import SuccessModal from "../home/modal"
 import { Timer } from "lucide-react"
+import { CarFront } from "lucide-react"
 
-export default function PickupDetails({pickupDict, pickup, destination, pickupCoords, destinationCoords, phone, email, pickupDate, pickupTime, price, returnPrice, numAdultSeats, numChildSeats,services ,customerNote, returnDate,  returnTime, vehicleID, vehicleCategory, login, signup, lang, duration} ) {
+export default function PickupDetails({ pickupDict, pickup, destination, pickupCoords, destinationCoords, phone, email, pickupDate, pickupTime, price, returnPrice, numAdultSeats, numChildSeats, numRides, services, customerNote, returnDate, returnTime, vehicleID, vehicleCategory, numLuggage, login, signup, lang, duration }) {
   const router = useRouter();
 
   const [IsLogin, setLogin] = useState(false);
@@ -37,7 +38,7 @@ export default function PickupDetails({pickupDict, pickup, destination, pickupCo
     destinationCoords: destinationCoords,
     phone: phone,
     pickupDate: pickupDate,
-    pickupTime: pickupTime ,
+    pickupTime: pickupTime,
     vehicleID: vehicleID,
     vehicleCategory: vehicleCategory,
     price: price,
@@ -47,13 +48,14 @@ export default function PickupDetails({pickupDict, pickup, destination, pickupCo
     returnDate: returnDate,
     returnTime: returnTime,
     customerNote: customerNote,
-    duration:duration,
-    services:services, 
-    email:email
+    duration: duration,
+    services: services,
+    numLuggage: numLuggage,
+    email: email
   })
 
   const [paymentCash, setPaymentCash] = useState("cash");
-  
+
   const formRef = useRef(null);
 
   const getScrollableParent = (el) => {
@@ -84,31 +86,31 @@ export default function PickupDetails({pickupDict, pickup, destination, pickupCo
   const fetchData = async (e) => {
     e.preventDefault();
     try {
-    const response = await fetch('/api/validate_token', {
+      const response = await fetch('/api/validate_token', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-    });
+      });
 
-    if (response.status === 200) {
+      if (response.status === 200) {
         const data = await response.json();
         setLoggedIn(true);
         setIsGuest(false);
         handleSubmit(e);
-        
-    } else {
+
+      } else {
         setLoggedIn(false);
         setLogin(true);
-    }
+      }
     } catch (err) {
-        setLoggedIn(false);
-        setLogin(true);
+      setLoggedIn(false);
+      setLogin(true);
     }
   };
 
-  
 
-  const handleSubmit = async(e, guest = false) => {
+
+  const handleSubmit = async (e, guest = false) => {
     e.preventDefault();
     setButtonLoading(true);
     setIsGuest(guest)
@@ -117,73 +119,74 @@ export default function PickupDetails({pickupDict, pickup, destination, pickupCo
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    
+
     const body = {
       datetime_pickup: `${pickupData.pickupDate}T${pickupData.pickupTime}:00`,
       pickup_coordinates: pickupData.pickupCoords,
-      pickup_location:pickupData.pickup,
+      pickup_location: pickupData.pickup,
       phone_number: pickupData.phone,
       num_adult_seats: pickupData.numAdultSeats,
       child_seats: pickupData.child_seats,
       id_vehicle_category: pickupData.vehicleID,
       customer_note: pickupData.customerNote,
+      num_luggage: pickupData.numLuggage,
       services: pickupData.services
     }
 
-    if(email){
+    if (email) {
       body.email = pickupData.email
     }
-    
-    if(pickupData.destination){
-        body.dropoff_coordinates = pickupData.destinationCoords;
-        body.dropoff_location = pickupData.destination;
+
+    if (pickupData.destination) {
+      body.dropoff_coordinates = pickupData.destinationCoords;
+      body.dropoff_location = pickupData.destination;
     }
-    if (returnPrice){
-      body.return_ride =  true;
+    if (returnPrice) {
+      body.return_ride = true;
       body.datetime_return = `${pickupData.returnDate}T${pickupData.returnTime}:00`;
-    }if(pickupData.duration){
+    } if (pickupData.duration) {
       body.duration = pickupData.duration * 3600;
     }
-    const response = await fetch(`/api/create_ride`,{
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify(body),
+    const response = await fetch(`/api/create_ride`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify(body),
     })
 
     console.log(body)
     const data = await response.json();
-    if(response.status === 201){
-        const totalPrice = pickupData.returnPrice
-        ? Number(pickupData.price) + Number(pickupData.returnPrice) 
+    if (response.status === 201) {
+      const totalPrice = pickupData.returnPrice
+        ? Number(pickupData.price) + Number(pickupData.returnPrice)
         : Number(pickupData.price);
 
-        if(!guest){
-          setShowSuccess(true)
-          setButtonLoading(false);
-          setType('success');
-          setTimeout(() => {
-            router.push(`/${lang}/bookings`);
-        }, 4000);
-        }else{
-          router.push(`/${lang}/pickup-details?pickup=${pickupData.pickup}&destination=${pickupData.destination}&phone=${pickupData.phone}&pickupDate=${pickupData.pickupDate}&pickupTime=${pickupData.pickupTime}&price=${totalPrice}&returnDate=${pickupData.returnDate}&returnTime=${pickupData.returnTime}&vehicle=${pickupData.vehicleCategory}&duration=${duration}&booking=${data.message.booking_number}`)
-        }
-    }else if (response.status == 429){
-        console.log(data);
-        setShowSuccess(true);
-        setType('limit');
+      if (!guest) {
+        setShowSuccess(true)
         setButtonLoading(false);
+        setType('success');
         setTimeout(() => {
-            setShowSuccess(false);
-        }, 5000);
-    }else if(response.status == 401){
-        setLogin(true);
-        setButtonLoading(false);
-    }else if(data?.message?.phone_number?.[0] === 'Invalid phone number.'){
+          router.push(`/${lang}/bookings`);
+        }, 4000);
+      } else {
+        router.push(`/${lang}/booking_details/${data.message.booking_number}`)
+      }
+    } else if (response.status == 429) {
+      console.log(data);
+      setShowSuccess(true);
+      setType('limit');
+      setButtonLoading(false);
+      setTimeout(() => {
+        setShowSuccess(false);
+      }, 5000);
+    } else if (response.status == 401) {
+      setLogin(true);
+      setButtonLoading(false);
+    } else if (data?.message?.phone_number?.[0] === 'Invalid phone number.') {
       setError(pickupDict.invalidPhone);
       scrollToTop();
       setButtonLoading(false);
-    }else{
+    } else {
       setError(pickupDict.error);
       scrollToTop();
       setButtonLoading(false);
@@ -191,17 +194,17 @@ export default function PickupDetails({pickupDict, pickup, destination, pickupCo
   };
   return (
     <>
-    {
+      {
         IsLogin &&
-        <PickLogin login = {login} signup={signup} lang={lang} closeModal={()=>setLogin(false)} submit={handleSubmit}/>
-    }
-    {
+        <PickLogin login={login} signup={signup} lang={lang} closeModal={() => setLogin(false)} submit={handleSubmit} />
+      }
+      {
         showSuccess &&
-        <SuccessModal type={type} isGuest={isGuest}/>
-    }
-    <form ref={formRef} className="flex items-center justify-center w-screen lg:w-full" onSubmit={fetchData}>
+        <SuccessModal type={type} isGuest={isGuest} />
+      }
+      <form ref={formRef} className="flex items-center justify-center w-screen lg:w-full" onSubmit={fetchData}>
         <div className=" lg:bg-white rounded-xl lg:shadow p-6 w-120 max-w-[90%]">
-          {error && 
+          {error &&
             <>
               <div className="mb-4 py-3 w-full bg-red-100 border-l-4 border-red-500 rounded text-red-800 text-center font-medium">
                 {error}
@@ -210,46 +213,46 @@ export default function PickupDetails({pickupDict, pickup, destination, pickupCo
           }
           <h2 className="text-lg font-semibold mb-1">{pickupDict.pickConfirm}</h2>
           <p className="text-sm text-gray-500 mb-4">{pickupDict.details}</p>
-          
+
           <div className="space-y-4">
-          <div className="flex gap-4 w-100 max-w-[90%]">
-            <div className="flex flex-col items-center pt-2">
-            {pickupData.destination ? (
-                <>
-                <div className="w-3 h-3 rounded-full bg-green-500 border-2 border-white shadow-md"></div>
-                <div className="w-px h-14 bg-gray-300 my-2"></div>
-                <MapPinIcon className="w-4 h-4 text-red-500" />
-                </>
-            ):
-            <MapPinIcon className="w-5 h-7 text-gray-700" />
-            }
-            </div>
-            <div className="flex flex-col h-full gap-4">
-            <div className="flex items-center space-x-3">
-              <div>
+            <div className="flex gap-4 w-100 max-w-[90%]">
+              <div className="flex flex-col items-center pt-2">
+                {pickupData.destination ? (
+                  <>
+                    <div className="w-3 h-3 rounded-full bg-green-500 border-2 border-white shadow-md"></div>
+                    <div className="w-px h-14 bg-gray-300 my-2"></div>
+                    <MapPinIcon className="w-4 h-4 text-red-500" />
+                  </>
+                ) :
+                  <MapPinIcon className="w-5 h-7 text-gray-700" />
+                }
+              </div>
+              <div className="flex flex-col h-full gap-4">
+                <div className="flex items-center space-x-3">
+                  <div>
                     <p className="font-medium">{pickupDict.pickupLocation}</p>
                     <p className="text-gray-600">{pickupData.pickup || "Not provided"}</p>
+                  </div>
+                </div>
+                {pickupData.destination &&
+                  <div className="flex items-center space-x-3">
+                    <div>
+                      <p className="font-medium">{pickupDict.destination}</p>
+                      <p className="text-gray-600">{pickupData.destination || "Not provided"}</p>
+                    </div>
+                  </div>
+                }
               </div>
             </div>
-            {pickupData.destination &&
-            <div className="flex items-center space-x-3">
-              <div>
-                <p className="font-medium">{pickupDict.destination}</p>
-                <p className="text-gray-600">{pickupData.destination || "Not provided"}</p>
-              </div>
-            </div>
-            }
-            </div>
-           </div>
             {phone ?
-            <div className="flex items-center space-x-3">
-              <Phone className="w-5 h-5 text-gray-700" />
-              <div>
-                <p className="font-medium">{pickupDict.phone}</p>
-                <p className="text-gray-600">{pickupData.phone || "Not provided"}</p>
+              <div className="flex items-center space-x-3">
+                <Phone className="w-5 h-5 text-gray-700" />
+                <div>
+                  <p className="font-medium">{pickupDict.phone}</p>
+                  <p className="text-gray-600">{pickupData.phone || "Not provided"}</p>
+                </div>
               </div>
-            </div>
-            :<></>}
+              : <></>}
             <div className="flex items-center space-x-3">
               <Calendar className="w-5 h-5 text-gray-700" />
               <div>
@@ -259,54 +262,84 @@ export default function PickupDetails({pickupDict, pickup, destination, pickupCo
             </div>
             {duration &&
               <div className="flex items-center space-x-3">
-              <Timer className="w-6 h-6 text-stone-700" />
-              <div>
-                <p className="font-medium">{pickupDict.duration}</p>
-                <p className="text-gray-600">{pickupData.duration} {pickupData.duration ==1 ? pickupDict.hour : pickupDict.hours}</p>
+                <Timer className="w-6 h-6 text-stone-700" />
+                <div>
+                  <p className="font-medium">{pickupDict.duration}</p>
+                  <p className="text-gray-600">{pickupData.duration} {pickupData.duration == 1 ? pickupDict.hour : pickupDict.hours}</p>
+                </div>
               </div>
-            </div>
             }
-            
+
             {pickupData.returnDate ?
-            <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-3">
                 <Calendar className="w-5 h-5 text-gray-700" />
                 <div>
-                <p className="font-medium">{pickupDict.returnTime}</p>
-                <p className="text-gray-600">{pickupData.returnDate}{'\u00A0'}{'\u00A0'}{'\u00A0'}{pickupData.returnTime}</p>
+                  <p className="font-medium">{pickupDict.returnTime}</p>
+                  <p className="text-gray-600">{pickupData.returnDate}{'\u00A0'}{'\u00A0'}{'\u00A0'}{pickupData.returnTime}</p>
                 </div>
-            </div>
-            : <></>
+              </div>
+              : <></>
             }
+
+            <div className="flex items-center space-x-3">
+              <User className="w-5 h-5 text-gray-700" />
+              <div>
+                <h3 className="text-lg font-semibold flex items-center m-0 p-0">
+                  {pickupDict.seat_req}</h3>
+                <span className="text-sm text-foreground text-gray-600 font-medium ml-1">
+                  {numAdultSeats} × {pickupDict.adults}
+                </span>
+                {numChildSeats.map((childSeat, index) => (
+                  <div key={index} className="flex items-center gap-3">
+                    <span className="text-sm text-foreground text-gray-600 font-medium ml-1">
+                      {childSeat.num_seats} × {childSeat.seat_type}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex items-center -mt-1 space-x-3">
+              <CarFront className="w-5 h-5 text-gray-700" />
+              <div>
+                <h3 className="text-lg font-semibold flex items-center gap-2 ">
+                  {pickupDict.vehicle}
+                </h3>
+                <span className="text-sm text-foreground text-gray-600 font-medium ml-1">{numRides} × {vehicleCategory}</span>
+              </div>
+            </div>
+
+
             <div className="w-full flex justify-between items-center pr-2 rounded-lg border-gray-200">
               <p className="text-orange-600 text-lg font-medium">{pickupDict.totalPrice}</p>
               <p className="text-orange-600 text-xl font-bold">€{Math.round(Number(pickupData.price) + Number(pickupData.returnPrice))}</p>
             </div>
             <div>
-                <h3 className="font-bold text-gray-900 text-lg">{pickupDict.paymentMethod}</h3>
-                <RadioGroup defaultValue="cash" onValueChange={(value)=>{setPaymentCash(value);}} className={"mt-3"}>
-                    <div className={`flex items-center gap-3 p-3 rounded-lg border border-gray-200 ${paymentCash==="cash" ? "border-2 border-gray-700": ""}`}>
-                        <RadioGroupItem value="cash" id="r2" />
-                        <label htmlFor="r2">{pickupDict.cash}</label>
-                    </div>
-                    {/*<div className={`flex items-center gap-3 p-3 rounded-lg border border-gray-200 ${paymentCash==="credit" ? "border-2 border-gray-700": ""}`}>
+              <h3 className="font-bold text-gray-900 text-lg">{pickupDict.paymentMethod}</h3>
+              <RadioGroup defaultValue="cash" onValueChange={(value) => { setPaymentCash(value); }} className={"mt-3"}>
+                <div className={`flex items-center gap-3 p-3 rounded-lg border border-gray-200 ${paymentCash === "cash" ? "border-2 border-gray-700" : ""}`}>
+                  <RadioGroupItem value="cash" id="r2" />
+                  <label htmlFor="r2">{pickupDict.cash}</label>
+                </div>
+                {/*<div className={`flex items-center gap-3 p-3 rounded-lg border border-gray-200 ${paymentCash==="credit" ? "border-2 border-gray-700": ""}`}>
                         <RadioGroupItem value="credit" id="r3" />
                         <label htmlFor="r3">{pickupDict.credit}</label>
                     </div>*/}
-                </RadioGroup>
+              </RadioGroup>
             </div>
             <Button className="w-full cursor-pointer text-white rounded-lg text-[17px] p-3 py-5 bg-orange-500 transition-transform duration-300 hover:scale-103 hover:bg-white hover:border-2 hover:border-black hover:text-black min-w-max" type="submit">
-            {buttonLoading ?
-            <>
-              <Loader2Icon className="animate-spin text-white" />
-              Loading ...
-            </>:
-            <>
-              {pickupDict.confirm}
-            </>
-            }
+              {buttonLoading ?
+                <>
+                  <Loader2Icon className="animate-spin text-white" />
+                  Loading ...
+                </> :
+                <>
+                  {pickupDict.confirm}
+                </>
+              }
             </Button>
           </div>
-        </div>        
+        </div>
       </form>
     </>
   )

@@ -6,10 +6,13 @@ import { Timer } from 'lucide-react'
 import Loading from '@/app/loading'
 import { UserCircle } from 'lucide-react'
 import { UserRound } from 'lucide-react'
+import { Car } from 'lucide-react'
+import { CarFront } from 'lucide-react'
 
 export default function Form({ lang, pickupDict, bookingNum }) {
   const [details, setDetails] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [numRides, setNumRides] = useState(0);
   const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
@@ -21,9 +24,11 @@ export default function Form({ lang, pickupDict, bookingNum }) {
         },
       })
       if (response.status === 200) {
-        const data = await response.json()
+        const data = await response.json();
+
         setDetails(data[0]);
-        console.log(data[0]);
+        setNumRides(data.length / 2);
+        console.log(data);
         setIsLoading(false);
       } else if (response.status === 404) {
         setIsLoading(false);
@@ -117,28 +122,41 @@ export default function Form({ lang, pickupDict, bookingNum }) {
             : <></>
           }
 
-          <div className="flex items-center">
+          <div className="flex items-center space-x-3">
+            <User className="w-5 h-5 text-gray-700" />
             <div>
-              <h3 className="text-lg font-semibold flex items-center gap-2 ">
+              <h3 className="text-lg font-semibold flex items-center m-0 p-0">
                 {pickupDict.seat_req}</h3>
-              <span className="text-sm text-foreground">{pickupDict.adults}: <span className="font-medium ml-1">{details.booking.num_adult_seats} {pickupDict.seats}</span></span>
+              <span className="text-sm text-foreground text-gray-600 font-medium ml-1">
+                {details.booking.num_adult_seats} × {pickupDict.adults}
+              </span>
               {details.booking.extra_child_seats.map((childSeat, index) => (
                 <div key={index} className="flex items-center gap-3">
-                  <span className="text-sm text-foreground">
-                    {childSeat.seat_type}: <span className="font-medium ml-1">{childSeat.num_seats} {pickupDict.seats}</span>
+                  <span className="text-sm text-foreground text-gray-600 font-medium ml-1">
+                    {childSeat.num_seats} × {childSeat.seat_type}
                   </span>
                 </div>
               ))}
             </div>
           </div>
 
+          <div className="flex items-center -mt-1 space-x-3">
+            <CarFront className="w-5 h-5 text-gray-700" />
+            <div>
+              <h3 className="text-lg font-semibold flex items-center gap-2 ">
+                {pickupDict.vehicle}
+              </h3>
+              <span className="text-sm text-foreground text-gray-600 font-medium ml-1">{numRides} × {details.booking.vehicle_category}</span>
+            </div>
+          </div>
+
           {details.booking?.services?.service &&
-            <div className="grid grid-cols-1 lg:grid-cols-2">
+            <div className="">
               <div className="mt-1">
                 <h3 className="text-lg font-semibold flex items-center gap-2 ">
                   {pickupDict.service}
-                  <p className='text-orange-700'>{details.booking.services.service}</p>
-                </h3>
+                  <p className='text-orange-700 text-sm font-bold'>{details.booking.services.service}</p>
+                  </h3>
               </div>
             </div>
           }

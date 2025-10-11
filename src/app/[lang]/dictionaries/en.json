@@ -121,6 +121,7 @@
     "pickDate": "Pick a date",
     "time": "Time",
     "vehicleType": "Vehicle type",
+    "vehicle":"Vehicle",
     "addReturn": "Add Return Trip",
     "returnDate": "Return Date",
     "returnTime": "Return Time",
@@ -163,7 +164,7 @@
     "booking": "Booking",
     "notFound": "This page could not be found.", 
     "seats" : "seats",
-    "seat_req" : "Seating Requirements",
+    "seat_req" : "Passengers",
     "service" : "Service"
   }
 }

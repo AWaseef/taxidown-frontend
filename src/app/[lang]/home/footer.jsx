@@ -8,22 +8,22 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 md:gap-12 gap-5">
         <div className='text-center'>
           <div className='w-[30vw] text-[45px] font-medium min-w-max w-full'>{name}</div>
-          <p className='w-2/3 md:w-full m-auto'>Committed to safe, reliable, and professional transportation services tailored to your needs.</p>
+          <p className='w-2/3 md:w-full m-auto text-gray-300'>Committed to safe, reliable, and professional transportation services tailored to your needs.</p>
         </div>
-        <div className='flex md:justify-end md:w-[50vw] md:gap-30 gap-10 justify-center'> 
+        <div className='flex flex-col md:flex-row md:justify-end md:w-[50vw] md:gap-10 lg:gap-30 gap-3 justify-center'> 
             
-            <div className='flex flex-col md:text-[27px] text-[20px] font-semibold text-center'>
+            <div className='flex flex-col md:text-[27px] text-[20px] font-semibold text-center text-white'>
                 Navigations
-                <Link href='/en/home' className='text-yellow-1000 md:text-[16px] text-[15px] hover:text-yellow-600 hover:scale-105'>Home</Link>   
-                <Link href='/en/pickup' className='text-yellow-1000 md:text-[16px] text-[15px] hover:text-yellow-600 hover:scale-105'>Pickup</Link>        
-                <Link href='/en/terms' className='text-yellow-1000 md:text-[16px] text-[15px] hover:text-yellow-600 hover:scale-105'>Terms of Use</Link> 
+                <Link href='/en/home' className='text-yellow-1000 md:text-[16px] text-[15px] hover:text-yellow-600 hover:scale-105 text-gray-300'>Home</Link>   
+                <Link href='/en/pickup' className='text-yellow-1000 md:text-[16px] text-[15px] hover:text-yellow-600 hover:scale-105 text-gray-300'>Pickup</Link>        
+                <Link href='/en/terms' className='text-yellow-1000 md:text-[16px] text-[15px] hover:text-yellow-600 hover:scale-105 text-gray-300'>Terms of Use</Link> 
             </div>
 
             <div className="flex flex-col md:text-[27px] text-[20px] font-semibold text-center">
             Contact Us
             <a
               href="mailto:info@quickpickups.es"
-              className="text-yellow-1000 md:text-[16px] text-[15px] hover:text-yellow-600 hover:scale-105 transition-all duration-200"
+              className="text-gray-300 md:text-[16px] text-[15px] hover:text-yellow-600 hover:scale-105 transition-all duration-200"
             >
               info@quickpickups.es
             </a>
