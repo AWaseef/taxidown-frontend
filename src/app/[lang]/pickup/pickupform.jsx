@@ -880,7 +880,7 @@ export default function PickupFor({
                             </div>
                             <div className="flex w-max gap-2">
                               <div className="flex items-center text-neutral-500 text-md"><User size={5} strokeWidth={2.5} />× {fleet.num_seats}</div>
-                              <div className="flex items-center gap-1 text-md text-neutral-500"><Briefcase strokeWidth={2} />× {fleet.num_luggage}</div>
+                              <div className="flex items-center gap-1 text-md text-neutral-500"><Briefcase strokeWidth={2} />× {fleet.max_luggages}</div>
                             </div>
                           </div>
                         </SelectItem>
