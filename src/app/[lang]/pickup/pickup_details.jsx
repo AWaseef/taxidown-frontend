@@ -312,7 +312,7 @@ export default function PickupDetails({ pickupDict, pickup, destination, pickupC
 
             <div className="w-full flex justify-between items-center pr-2 rounded-lg border-gray-200">
               <p className="text-orange-600 text-lg font-medium">{pickupDict.totalPrice}</p>
-              <p className="text-orange-600 text-xl font-bold">€{Number(pickupData.price) + Number(pickupData.returnPrice)}</p>
+              <p className="text-orange-600 text-xl font-bold">€{Math.round(Number(pickupData.price) + Number(pickupData.returnPrice))}</p>
             </div>
             <div>
               <h3 className="font-bold text-gray-900 text-lg">{pickupDict.paymentMethod}</h3>

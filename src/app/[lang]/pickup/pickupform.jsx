@@ -217,7 +217,7 @@ export default function PickupFor({
         setID(data.features[0].id)
       }
     } catch (error) {
-      console.error("Reverse geocoding failed:", error)
+     // console.error("Reverse geocoding failed:", error)
     }
   }
 
@@ -233,7 +233,7 @@ export default function PickupFor({
       }
       
     } catch (error) {
-      console.error("Forward geocoding failed:", error)
+      // console.error("Forward geocoding failed:", error)
     }
   }
 
@@ -301,7 +301,7 @@ export default function PickupFor({
         const data = await response.json()
         setPickupResults(data)
       } catch (error) {
-        console.error("Pickup autocomplete failed:", error)
+        // console.error("Pickup autocomplete failed:", error)
       }
     }
     const timeoutId = setTimeout(fetchSuggestions, 300)
@@ -320,7 +320,7 @@ export default function PickupFor({
         const data = await response.json()
         setDestinationResults(data)
       } catch (error) {
-        console.error("Destination autocomplete failed:", error)
+        // console.error("Destination autocomplete failed:", error)
       }
     }
     const timeoutId = setTimeout(fetchSuggestions, 300)
@@ -505,11 +505,10 @@ export default function PickupFor({
       });
 
       if (res.status === 200) {
-        const data = await res.json();
-        setEstimatedPrice(data.price);
-        setNumRides(data.num_rides);
-        // router.push(`/${lang}/pickup-details?pickup=${pickupQuery}&destination=${destinationQuery}&pickCoords=${pickup.join(",")}&destinationCoords=${destinationCoords.join(",")}&phone=${phone}&pickupDate=${selectedDate}&pickupTime=${selectedTime}&price=${estimatedPrice[0]}&returnPrice=${estimatePrice[1]}&adults=${adults}&childern=${children}&note=${comment}&returnDate=${returnDate}&returnTime=${returnTime}&vehicleID=${selectedFleetID}&vehicle=${selectedFleetValue}`)
-      } else if (res.status === 404) {
+          const data = await res.json();
+          setEstimatedPrice(data.price.map((element)=> element * data.num_rides));
+         // router.push(`/${lang}/pickup-details?pickup=${pickupQuery}&destination=${destinationQuery}&pickCoords=${pickup.join(",")}&destinationCoords=${destinationCoords.join(",")}&phone=${phone}&pickupDate=${selectedDate}&pickupTime=${selectedTime}&price=${estimatedPrice[0]}&returnPrice=${estimatePrice[1]}&adults=${adults}&childern=${children}&note=${comment}&returnDate=${returnDate}&returnTime=${returnTime}&vehicleID=${selectedFleetID}&vehicle=${selectedFleetValue}`)
+      }else if(res.status === 404){
         setError(pickdict.failed);
         scrollToTop();
         setButtonLoading(false);
@@ -529,23 +528,24 @@ export default function PickupFor({
 
   useEffect(() => {
     const fetchData = async () => {
-      let success = false;
-
-      while (!success) {
-        try {
-          const response = await fetch(`/api/get_fleets`, {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
-          })
-
-          if (response.status === 200) {
-            const data = await response.json();
-            setFleets(data);
-            success = true;
-            setIsLoading(false);
-          }
-        } catch (error) {
-          console.error('Fetch error:', error);
+        let success = false;
+        
+        while (!success) {
+            try {
+                const response = await fetch(`/api/get_fleets`, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' },
+                })
+                
+                if (response.status === 200) {
+                    const data = await response.json();
+                    setFleets(data);
+                    success = true;
+                    setIsLoading(false);
+                }
+            } catch (error) {
+                // console.error('Fetch error:', error);
+            }
         }
       }
     }
@@ -562,7 +562,6 @@ export default function PickupFor({
 
   const [childSeats, setChildSets] = useState([]);
   const [childVisibility, setChildVisiblity] = useState(false);
-
 
   const [showOption, setShowOption] = useState(false);
   const [showCurrentDest, setShowCurrentDest] = useState(false);
