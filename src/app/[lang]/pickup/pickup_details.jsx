@@ -315,14 +315,13 @@ export default function PickupDetails({ pickupDict, pickup, destination, pickupC
                 <span className="text-sm text-foreground text-gray-600 font-medium ml-1">{numRides} × {vehicleCategory}</span>
               </div>
             </div>
-
               
-              <div>
-                <h3 className="text-lg font-semibold flex items-center gap-2 mb-1">
-                  {pickupDict.luggage}
-                </h3>
-                <span className="text-sm text-foreground text-gray-600 font-medium ml-1 flex gap-1">{numLuggage} × <Briefcase size={18} className=" text-gray-600" /></span>
-              </div>
+            <div>
+              <h3 className="text-lg font-semibold flex items-center gap-2 mb-1">
+                {pickupDict.luggage}
+              </h3>
+              <span className="text-sm text-foreground text-gray-600 font-medium ml-1 flex gap-1">{numLuggage} × <Briefcase size={18} className=" text-gray-600" /></span>
+            </div>
             </div>
 
             <div className="w-full flex justify-between items-center pr-2 rounded-lg border-gray-200">
