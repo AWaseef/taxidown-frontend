@@ -141,6 +141,8 @@
     "destination": "Destination",
     "pickTime": "Pickup Time",
     "totalPrice": "Total Price",
+    "rides": "Forward rides",
+    "returnRides": "Return rides",
     "paymentMethod": "Payment Method",
     "cash": "Cash on Delivery",
     "credit": "Credit",
