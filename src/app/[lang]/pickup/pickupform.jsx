@@ -133,7 +133,7 @@ export default function PickupFor({
 
   const [isValid, setIsValid] = useState(false);
 
-  const [numRides, setNumRides] = useState(0);
+  const [numRides, setNumRides] = useState(null);
 
 
   function isValidEmail(email) {
@@ -506,7 +506,9 @@ export default function PickupFor({
 
       if (res.status === 200) {
           const data = await res.json();
+          console.log(data)
           setEstimatedPrice(data.price.map((element)=> element * data.num_rides));
+          setNumRides(data.num_rides);
          // router.push(`/${lang}/pickup-details?pickup=${pickupQuery}&destination=${destinationQuery}&pickCoords=${pickup.join(",")}&destinationCoords=${destinationCoords.join(",")}&phone=${phone}&pickupDate=${selectedDate}&pickupTime=${selectedTime}&price=${estimatedPrice[0]}&returnPrice=${estimatePrice[1]}&adults=${adults}&childern=${children}&note=${comment}&returnDate=${returnDate}&returnTime=${returnTime}&vehicleID=${selectedFleetID}&vehicle=${selectedFleetValue}`)
       }else if(res.status === 404){
         setError(pickdict.failed);
@@ -548,7 +550,6 @@ export default function PickupFor({
             }
         }
       }
-    }
     fetchData();
   }, [])
 

@@ -15,6 +15,7 @@ import PickLogin from "../home/pick_login"
 import SuccessModal from "../home/modal"
 import { Timer } from "lucide-react"
 import { CarFront } from "lucide-react"
+import { Briefcase } from "lucide-react"
 
 export default function PickupDetails({ pickupDict, pickup, destination, pickupCoords, destinationCoords, phone, email, pickupDate, pickupTime, price, returnPrice, numAdultSeats, numChildSeats, numRides, services, customerNote, returnDate, returnTime, vehicleID, vehicleCategory, numLuggage, login, signup, lang, duration }) {
   const router = useRouter();
@@ -98,7 +99,7 @@ export default function PickupDetails({ pickupDict, pickup, destination, pickupC
         setIsGuest(false);
         handleSubmit(e);
 
-      } else {
+      }else {
         setLoggedIn(false);
         setLogin(true);
       }
@@ -186,7 +187,11 @@ export default function PickupDetails({ pickupDict, pickup, destination, pickupC
       setError(pickupDict.invalidPhone);
       scrollToTop();
       setButtonLoading(false);
-    } else {
+    }else if(response.status >= 400 && response.status < 500 && response.status !== 401){
+      setError(data?.message?.detail);
+      scrollToTop();
+      setButtonLoading(false);
+    }  else {
       setError(pickupDict.error);
       scrollToTop();
       setButtonLoading(false);
@@ -299,6 +304,8 @@ export default function PickupDetails({ pickupDict, pickup, destination, pickupC
               </div>
             </div>
 
+            
+            <div className="flex gap-20">
             <div className="flex items-center -mt-1 space-x-3">
               <CarFront className="w-5 h-5 text-gray-700" />
               <div>
@@ -308,7 +315,14 @@ export default function PickupDetails({ pickupDict, pickup, destination, pickupC
                 <span className="text-sm text-foreground text-gray-600 font-medium ml-1">{numRides} × {vehicleCategory}</span>
               </div>
             </div>
-
+              
+            <div>
+              <h3 className="text-lg font-semibold flex items-center gap-2 mb-1">
+                {pickupDict.luggage}
+              </h3>
+              <span className="text-sm text-foreground text-gray-600 font-medium ml-1 flex gap-1">{numLuggage} × <Briefcase size={18} className=" text-gray-600" /></span>
+            </div>
+            </div>
 
             <div className="w-full flex justify-between items-center pr-2 rounded-lg border-gray-200">
               <p className="text-orange-600 text-lg font-medium">{pickupDict.totalPrice}</p>
