@@ -27,8 +27,7 @@ export default function Form({ lang, pickupDict, bookingNum }) {
         const data = await response.json();
 
         setDetails(data[0]);
-        setNumRides(data.length / 2);
-        console.log(data);
+        setNumRides(data[0].booking.return_ride ? data.length/2 : data.length);
         setIsLoading(false);
       } else if (response.status === 404) {
         setIsLoading(false);
