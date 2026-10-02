@@ -6,7 +6,7 @@ import { ArrowBigDownDash } from 'lucide-react'
 export default function PickupContainer({dict, lang}) {
   return (
     <div className='relative w-full md:h-screen h-[650px] bg-[url(/home2.png)] bg-cover relative bg-center flex items-center justify-center md:flex-none'>
-        <Pick pick={dict.lang.pickupTripNow} oneWay={dict.lang.oneWay} perHour={dict.lang.perHour} pickupLocation={dict.lang.pickupLocation} destination={dict.lang.destination} getOffer={dict.lang.getOffer} login={dict.login} signup={dict.signup} pickdict={dict.pick} lang={lang}/>
+        <Pick heroTitle={dict.home.heroTitle} pick={dict.lang.pickupTripNow} oneWay={dict.lang.oneWay} perHour={dict.lang.perHour} pickupLocation={dict.lang.pickupLocation} destination={dict.lang.destination} getOffer={dict.lang.getOffer} login={dict.login} signup={dict.signup} pickdict={dict.pick} lang={lang}/>
         <button 
         onClick={() =>
             document.getElementById("ourservices")?.scrollIntoView({ behavior: "smooth" })

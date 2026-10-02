@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { UserCheck } from "lucide-react";
 
-export default function DriverProfessionals({ path, title, content, flip }) {
+export default function DriverProfessionals({ path, title, content, flip, alt }) {
   const { ref, inView } = useInView({ threshold: 0.25, triggerOnce: false });
 
   return (
@@ -27,7 +27,7 @@ export default function DriverProfessionals({ path, title, content, flip }) {
         <div className="w-full md:w-1/2 h-full">
         <img
         src={path}
-        alt="Professional Driver"
+        alt={alt}
         className="rounded-2xl shadow-lg w-full h-[280px] sm:h-[340px] lg:h-[380px] object-cover"
         />
 

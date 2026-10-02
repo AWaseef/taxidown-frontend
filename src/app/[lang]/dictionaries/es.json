@@ -1,4 +1,50 @@
 {
+  "meta": {
+    "homeTitle": "Traslado Aeropuerto Barcelona y Chófer Privado | QuickPickups",
+    "homeDescription": "Traslados privados desde el aeropuerto de El Prat y el puerto de cruceros de Barcelona. Precio fijo, seguimiento de vuelo y chófer profesional. Reserve online.",
+    "termsTitle": "Términos y condiciones",
+    "termsDescription": "Términos y condiciones para reservar traslados privados de QuickPickups en Barcelona: reservas, pagos, cancelaciones, equipaje y normas para pasajeros.",
+    "contactTitle": "Contacto",
+    "pickupTitle": "Reservar traslado en Barcelona",
+    "pickupDetailsTitle": "Detalles de la recogida",
+    "bookingsTitle": "Mis reservas",
+    "bookingDetailsTitle": "Detalles de la reserva",
+    "loginTitle": "Iniciar sesión",
+    "signupTitle": "Crear cuenta",
+    "forgotPasswordTitle": "Contraseña olvidada",
+    "resetPasswordTitle": "Restablecer contraseña",
+    "confirmEmailTitle": "Confirmar correo",
+    "unauthorizedTitle": "No autorizado",
+    "serviceDescription": "Traslados privados al aeropuerto, al puerto de cruceros y por la ciudad de Barcelona con conductores profesionales."
+  },
+  "home": {
+    "heroTitle": "Traslados privados en Barcelona",
+    "ourFleet": "Nuestra flota",
+    "whyChooseUs": "Por qué elegirnos",
+    "whyChooseUsSubtitle": "Un equipo que valora su tiempo, su comodidad y su confianza, porque su viaje nos importa.",
+    "coverageTitle": "Amplia cobertura",
+    "coverageText": "Vaya donde vaya, le llevamos. Desde traslados al aeropuerto hasta trayectos por la ciudad y viajes más largos, nuestro servicio cubre una amplia zona para que nunca tenga que preocuparse por llegar a su destino. Allá donde se dirija, QuickPickups le llevará de forma fiable y eficiente.",
+    "coverageAlt": "Reserva de un traslado privado en Barcelona con QuickPickups",
+    "driversTitle": "Conductores profesionales",
+    "driversText": "Nuestros conductores se seleccionan cuidadosamente, no solo por su experiencia al volante, sino también por su profesionalidad y cortesía. Conocen las mejores rutas, respetan su privacidad y siempre están dispuestos a ayudarle con el equipaje o cualquier petición especial. Con su conocimiento y amabilidad, se sentirá cómodo y atendido durante todo el trayecto.",
+    "driversAlt": "Conductor profesional de QuickPickups en Barcelona",
+    "fleetTitle": "Flota de vehículos moderna",
+    "fleetText": "Ofrecemos una amplia selección de vehículos para cada necesidad, desde coches elegantes para viajes de negocios hasta vehículos espaciosos para familias y grupos. Todos nuestros coches son modernos, se revisan con regularidad y cuentan con la última tecnología para que su trayecto sea agradable. Sea cual sea la ocasión, tenemos el vehículo perfecto para usted.",
+    "fleetAlt": "Vehículo moderno de QuickPickups para traslados privados"
+  },
+  "footer": {
+    "tagline": "Comprometidos con un transporte seguro, fiable y profesional, adaptado a sus necesidades.",
+    "navigation": "Navegación",
+    "home": "Inicio",
+    "book": "Reservar traslado",
+    "terms": "Condiciones de uso",
+    "contact": "Contacto",
+    "rights": "Todos los derechos reservados"
+  },
+  "consent": {
+    "text": "Este sitio web utiliza cookies para mejorar la experiencia de usuario. Al utilizar nuestro sitio web, acepta todas las cookies de acuerdo con nuestra Política de Cookies.",
+    "accept": "Aceptar"
+  },
   "lang": {
     "appTitle": "TaxiDrive",
     "pickupTripNow": "¡Elija su viaje ahora!",
@@ -43,6 +89,10 @@
     "emailVerifiedMessage": "Su correo electrónico ha sido verificado correctamente. ¡Ahora puede iniciar sesión en su cuenta!"
   },
   "login": {
+    "loginFirst": "¡Primero debe iniciar sesión!",
+    "or": "O",
+    "continueGuest": "Continuar como invitado",
+    "guestWarning": "Los invitados no pueden ver ni cancelar sus reservas",
     "loginTitle": "Iniciar sesión",
     "forgotPassword": "¿Olvidó su contraseña?",
     "dontHaveAccount": "¿No tiene una cuenta?",

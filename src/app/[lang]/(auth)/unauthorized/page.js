@@ -1,5 +1,12 @@
 import Link from "next/link";
 import { getDictionary } from '../../dictionaries.js'
+import { privatePage } from "@/lib/seo";
+
+export async function generateMetadata({ params }) {
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
+  return privatePage({ title: dict.meta.unauthorizedTitle });
+}
 
 export default async function UnauthorizedPage({params}) {
   const { lang } = await params

@@ -2,7 +2,14 @@ import Link from 'next/link'
 import React from 'react'
 import Signupform from './form.jsx'
 import { getDictionary } from '../../dictionaries.js'
+import { privatePage } from "@/lib/seo";
 
+
+export async function generateMetadata({ params }) {
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
+  return privatePage({ title: dict.meta.signupTitle });
+}
 
 export default async function SignupPage({params}) {
   const { lang } = await params;

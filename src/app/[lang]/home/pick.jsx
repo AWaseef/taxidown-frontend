@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import Link from 'next/link';
 
 
-export default function Pick({ pick,  oneWay, perHour, pickupLocation, destination, getOffer, login, signup, pickdict, lang}) {
+export default function Pick({ heroTitle, pick,  oneWay, perHour, pickupLocation, destination, getOffer, login, signup, pickdict, lang}) {
     const [isLoading, setIsLoading] = useState(false)
     const [IsLogin, setLogin] = useState(false);
     const router = useRouter();
@@ -171,7 +171,8 @@ export default function Pick({ pick,  oneWay, perHour, pickupLocation, destinati
         <SuccessModal type={type} />
     }
     <form onSubmit={handleSubmit} className='flex items-center justify-center flex-col pb-3 px-3 md:p-7 mt-35 md:mt-12 mb-20 h-[500px] h-max w-max shadow-lg absolute md:top-[20vh] xl:top-[20%] md:left-30 bg-white/20 backdrop-blur-md rounded-xl '>
-        <h1 className='md:text-[38px] text-[30px] truculenta font-medium mb-3 mt-5 md:m-6'>{pick}</h1>
+        <h1 className='md:text-[38px] text-[26px] truculenta font-medium text-center leading-tight max-w-[85vw] mt-5 md:mt-6 md:mx-6'>{heroTitle}</h1>
+        <p className='md:text-[22px] text-[18px] truculenta mb-3 md:mb-6'>{pick}</p>
         <div className=' w-60 mx-5 md:w-80 h-9 md:h-11 rounded-xl flex items-center justify-center mb-6 md:mb-12 bg-white text-black'>
             <button type="button" className={`w-30 md:w-40 text-[16px] md:text-[20px] border-black border-2 border-r-2 h-full rounded-s-xl flex items-center gap-2 pl-3 md:pl-5 cursor-pointer ${isOneWay ? 'bg-black text-white': 'bg-white text-black'}`} onClick={()=>{
                 setIsOneWay(true);
@@ -220,7 +221,7 @@ export default function Pick({ pick,  oneWay, perHour, pickupLocation, destinati
                     </button>
                 </Link>
             </div>
-            {!validPickup && <div className='text-center m-auto mb-3 flex items-center justify-center text-red-600 w-full'>Choose from valid pickup locations.</div>}
+            {!validPickup && <div className='text-center m-auto mb-3 flex items-center justify-center text-red-600 w-full'>{pickdict.chooseValidP}</div>}
             {showpickupResults && pickupResults.length > 0 && (
                 <div className="absolute bg-[#fcfcfa] border border-gray-300 rounded shadow w-full top-[39] z-10 max-h-50 overflow-auto">
                     {pickupResults.map((place, idx) => (
@@ -274,7 +275,7 @@ export default function Pick({ pick,  oneWay, perHour, pickupLocation, destinati
                     </button>
                 </Link>
             </div>
-            {!validDestination && <div className='text-center m-auto mb-3 flex items-center justify-center text-red-600 w-full'>Choose from valid destinations.</div>}
+            {!validDestination && <div className='text-center m-auto mb-3 flex items-center justify-center text-red-600 w-full'>{pickdict.chooseValidD}</div>}
 
             {showDestinationResults && destinationResults.length > 0 && (
                 <div className="absolute bg-[#fcfcfa] border border-gray-300 rounded shadow w-full top-[39] z-10 max-h-50 overflow-auto">

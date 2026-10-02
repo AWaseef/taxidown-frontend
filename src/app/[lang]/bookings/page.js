@@ -1,6 +1,13 @@
 import React from 'react'
 import { getDictionary } from '../dictionaries'
 import BookingForm from './form'
+import { privatePage } from "@/lib/seo";
+
+export async function generateMetadata({ params }) {
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
+  return privatePage({ title: dict.meta.bookingsTitle });
+}
 
 export default async function Booking({params}) {
     const {lang} = await params

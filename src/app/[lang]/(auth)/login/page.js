@@ -2,7 +2,14 @@ import Link from 'next/link'
 import React from 'react'
 import Loginform from './form.jsx'
 import { getDictionary } from '../../dictionaries.js'
+import { privatePage } from "@/lib/seo";
 
+
+export async function generateMetadata({ params }) {
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
+  return privatePage({ title: dict.meta.loginTitle });
+}
 
 export default async function LoginPage({params}) {
   const { lang } = await params
@@ -10,7 +17,7 @@ export default async function LoginPage({params}) {
   return (
     <div className='flex items-center h-screen w-screen justify-between '>
         <div className='text-center flex justify-center items-center flex-col lg:w-[33vw] md:w-[40vw] shadow-2xl h-[100vh] bg-[#fcfcfa] w-[100vw]'>
-        <h1 className='text-[50px] truculenta font-medium m-6 mt-8'>Login</h1>
+        <h1 className='text-[50px] truculenta font-medium m-6 mt-8'>{dict.auth.loginTitle}</h1>
             <Loginform loginTitle={dict.auth.loginTitle} em={dict.auth.email} pass={dict.auth.password} forgotPassword={dict.auth.forgotPassword} lang={lang} />
             <div className='text-[13px] mt-2'>
                 {dict.auth.dontHaveAccount}  <Link href={`/${lang}/signup`} className='text-yellow-500 hover:text-yellow-600'>

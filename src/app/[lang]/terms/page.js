@@ -4,6 +4,18 @@ import { getDictionary } from '../dictionaries'
 import Es from "./es";
 import En from "./en";
 import Footer from "../home/footer";
+import { indexablePage } from "@/lib/seo";
+
+export async function generateMetadata({ params }) {
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
+  return indexablePage({
+    lang,
+    path: "/terms",
+    title: dict.meta.termsTitle,
+    description: dict.meta.termsDescription,
+  });
+}
 
 export default async function TermsPage({params}) {
     const {lang} = await params;
@@ -17,7 +29,7 @@ export default async function TermsPage({params}) {
         <Es/>:
         <En/>
         }
-        <Footer/>
+        <Footer lang={lang} dict={dict.footer}/>
       </main>
     );
   }

@@ -3,6 +3,13 @@ import { getDictionary } from '../dictionaries'
 import PickupForm from './form';
 import PickupFor from './pickupform';
 import Navbar from '../home/nav';
+import { privatePage } from "@/lib/seo";
+
+export async function generateMetadata({ params }) {
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
+  return privatePage({ title: dict.meta.pickupTitle });
+}
 
 export default async function PickupPage({params}) {
     const {lang} = await params;

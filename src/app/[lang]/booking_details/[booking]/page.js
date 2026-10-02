@@ -2,6 +2,13 @@ import React from 'react'
 import { getDictionary } from '../../dictionaries';
 import Form from './form';
 import LanguageSwitcher from '../../switcher';
+import { privatePage } from "@/lib/seo";
+
+export async function generateMetadata({ params }) {
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
+  return privatePage({ title: dict.meta.bookingDetailsTitle });
+}
 
 export default async function Details({params}) {
   const {lang, booking} = await params;

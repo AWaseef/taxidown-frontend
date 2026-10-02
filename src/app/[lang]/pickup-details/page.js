@@ -1,6 +1,13 @@
 import { getDictionary } from '../dictionaries'
 import Navbar from "../home/nav"
 import Card from './card';
+import { privatePage } from "@/lib/seo";
+
+export async function generateMetadata({ params }) {
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
+  return privatePage({ title: dict.meta.pickupDetailsTitle });
+}
 
 export default async function PickupDetailsPage({params}) {
   const {lang} = await params;

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { ArrowLeft, Calendar, MapPin, Phone, User, Mail } from "lucide-react"
 import { MapPinIcon } from "@heroicons/react/24/solid"
 import { Timer } from 'lucide-react'
-import Loading from '@/app/loading'
+import Loading from '@/app/[lang]/loading'
 import { UserCircle } from 'lucide-react'
 import { UserRound } from 'lucide-react'
 import { Car } from 'lucide-react'
