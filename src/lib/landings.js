@@ -51,7 +51,7 @@ export const landings = [
         { q: "¿Dónde me espera el conductor en el aeropuerto?", a: "En la zona de llegadas de su terminal (T1 o T2), con un cartel con su nombre." },
         { q: "¿Qué pasa si mi vuelo se retrasa?", a: "Seguimos su vuelo en tiempo real y el conductor adapta la recogida. Además, tiene 60 minutos de espera gratuita desde la llegada real del vuelo." },
         { q: "¿Puedo pedir sillas para niños?", a: "Sí. Selecciónelas en el formulario de reserva indicando cuántas necesita." },
-        { q: "¿Cuánto cuesta el traslado del aeropuerto al centro?", a: "Depende del vehículo y del destino. Introduzca la recogida y el destino en el formulario y verá el precio antes de reservar. Precio orientativo: desde «DATO: precio desde» €." },
+        { q: "¿Cuánto cuesta el traslado del aeropuerto al centro?", a: "Depende del vehículo y del destino. Introduzca la recogida y el destino en el formulario y verá el precio antes de reservar. Precio orientativo: desde 35 € en categoría Economy." },
       ],
     },
     en: {
@@ -74,7 +74,7 @@ export const landings = [
         { q: "Where will the driver meet me at the airport?", a: "In the arrivals hall of your terminal (T1 or T2), holding a sign with your name." },
         { q: "What if my flight is delayed?", a: "We track your flight in real time and the driver adjusts the pickup. You also get 60 minutes of free waiting time from the actual arrival of your flight." },
         { q: "Can I request child seats?", a: "Yes. Select them in the booking form and tell us how many you need." },
-        { q: "How much is a transfer from the airport to the city centre?", a: "It depends on the vehicle and destination. Enter your pickup and destination in the booking form to see the price before you book. Guide price: from €«DATO: price from»." },
+        { q: "How much is a transfer from the airport to the city centre?", a: "It depends on the vehicle and destination. Enter your pickup and destination in the booking form to see the price before you book. Guide price: from €35 in our Economy category." },
       ],
     },
   },
@@ -87,7 +87,7 @@ export const landings = [
     image: "/car.webp",
     bookingService: { es: "Traslados al puerto de cruceros", en: "Cruise Port Transfers" },
     related: ["airport", "vanxl", "minibus", "minivan"],
-    pendingData: ["Precio desde aeropuerto ↔ puerto", "Precio desde hotel centro ↔ puerto"],
+    pendingData: ["Precio desde aeropuerto ↔ puerto (opcional)", "Precio desde hotel centro ↔ puerto (opcional)"],
     keywords: {
       es: ["traslado puerto cruceros Barcelona", "transfer Moll Adossat", "traslado aeropuerto puerto Barcelona", "taxi terminal cruceros Barcelona"],
       en: ["Barcelona cruise port transfer", "Moll Adossat transfer", "Barcelona airport to cruise port", "Barcelona cruise terminal taxi"],
@@ -112,7 +112,7 @@ export const landings = [
         { q: "¿A qué terminal me llevan?", a: "A la terminal de su naviera. Escríbala en los comentarios al reservar (por ejemplo, «Terminal E – Helix» o «MSC»). Si no la conoce todavía, indique el nombre del barco." },
         { q: "¿Puedo ir directamente del barco al aeropuerto?", a: "Sí. Reserve el traslado del puerto al aeropuerto para el día del desembarque e indique en los comentarios su número de vuelo." },
         { q: "¿Hay sitio para todas las maletas?", a: "Indique el número de maletas al reservar. Para familias o grupos con mucho equipaje le recomendamos una van XL o un minibús." },
-        { q: "¿Qué pasa si el desembarque se retrasa?", a: "Tiene 30 minutos de espera gratuita en el puerto. Si prevé un retraso mayor, contacte con nosotros en el «DATO: WhatsApp/teléfono»." },
+        { q: "¿Qué pasa si el desembarque se retrasa?", a: "Tiene 30 minutos de espera gratuita en el puerto. Si prevé un retraso mayor, contacte con nosotros en el +34 711 206 600." },
       ],
     },
     en: {
@@ -135,7 +135,7 @@ export const landings = [
         { q: "Which terminal will you take me to?", a: "Your cruise line's terminal. Write it in the comments when booking (for example, \"Terminal E – Helix\" or \"MSC\"). If you don't know it yet, give us your ship's name." },
         { q: "Can I go straight from the ship to the airport?", a: "Yes. Book a port-to-airport transfer for your disembarkation day and add your flight number in the comments." },
         { q: "Is there room for all our luggage?", a: "Tell us how many suitcases you have when booking. For families or groups with a lot of luggage we recommend an XL van or a minibus." },
-        { q: "What if disembarkation is delayed?", a: "You get 30 minutes of free waiting time at the port. If you expect a longer delay, contact us on «DATO: WhatsApp/phone»." },
+        { q: "What if disembarkation is delayed?", a: "You get 30 minutes of free waiting time at the port. If you expect a longer delay, contact us on +34 711 206 600." },
       ],
     },
   },
@@ -462,7 +462,7 @@ export const landings = [
       intro: "Viajar en grupo es más sencillo cuando todos van juntos en un mismo vehículo. Nuestros minibuses con conductor profesional son la solución para grupos de amigos, equipos de empresa, congresistas, invitados de boda y excursiones, con espacio para el equipaje.",
       highlights: [
         { title: "Todo el grupo en un vehículo", text: "Nadie se queda esperando un segundo coche: llegan todos juntos a la misma hora." },
-        { title: "Minibuses de «DATO: plazas» plazas", text: "Elija el tamaño según su grupo: «DATO: lista de tamaños disponibles»." },
+        { title: "Minibuses de 13 a 22 plazas", text: "Elija el tamaño según su grupo: «DATO: lista de tamaños disponibles»." },
         { title: "Traslados o por horas", text: "Un trayecto concreto o el minibús a su disposición durante la jornada." },
         { title: "Conductor profesional", text: "Todos nuestros vehículos incluyen conductor." },
       ],
@@ -472,7 +472,7 @@ export const landings = [
         { h2: "Qué incluye el servicio por horas", text: "El servicio por horas incluye el minibús, el conductor y «DATO: combustible / km incluidos». Es ideal para excursiones, bodas y eventos de empresa con varias paradas." },
       ],
       faq: [
-        { q: "¿Cuántas personas caben en el minibús?", a: "«DATO: plazas y maletas por modelo de minibús»." },
+        { q: "¿Cuántas personas caben en el minibús?", a: "Disponemos de minibuses de 13 a 22 plazas. Indique el número de pasajeros y de maletas al reservar y le asignaremos el tamaño adecuado." },
         { q: "¿El minibús incluye conductor?", a: "Sí, todos nuestros vehículos se ofrecen con conductor profesional." },
         { q: "¿Pueden recoger al grupo en el aeropuerto?", a: "Sí, con seguimiento de vuelo y 60 minutos de espera gratuita desde la llegada real del vuelo." },
         { q: "¿Puedo contratar el minibús por horas?", a: "Sí. Elija la opción «Por hora» en el formulario de reserva." },
@@ -486,7 +486,7 @@ export const landings = [
       intro: "Group travel is simpler when everyone rides together in one vehicle. Our minibuses with professional drivers are the solution for groups of friends, company teams, congress delegates, wedding guests and day trips, with room for luggage.",
       highlights: [
         { title: "The whole group in one vehicle", text: "Nobody waits for a second car: everyone arrives together at the same time." },
-        { title: "«DATO: seats»-seater minibuses", text: "Choose the size for your group: «DATO: list of available sizes»." },
+        { title: "Minibuses with 13 to 22 seats", text: "Choose the size for your group: «DATO: list of available sizes»." },
         { title: "Transfers or hourly hire", text: "A single journey or the minibus at your disposal for the day." },
         { title: "Professional driver", text: "All our vehicles come with a driver." },
       ],
@@ -496,7 +496,7 @@ export const landings = [
         { h2: "What hourly hire includes", text: "Hourly hire includes the minibus, the driver and «DATO: fuel / included km». It's ideal for day trips, weddings and corporate events with several stops." },
       ],
       faq: [
-        { q: "How many people fit in the minibus?", a: "«DATO: seats and luggage per minibus model»." },
+        { q: "How many people fit in the minibus?", a: "Our minibuses have 13 to 22 seats. Enter the number of passengers and suitcases when booking and we will assign the right size." },
         { q: "Does the minibus come with a driver?", a: "Yes, all our vehicles come with a professional driver." },
         { q: "Can you pick up our group at the airport?", a: "Yes, with flight tracking and 60 minutes of free waiting time from the actual arrival of the flight." },
         { q: "Can I hire the minibus by the hour?", a: "Yes. Choose the \"Per Hour\" option in the booking form." },
