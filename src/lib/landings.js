@@ -51,7 +51,7 @@ export const landings = [
         { q: "¿Dónde me espera el conductor en el aeropuerto?", a: "En la zona de llegadas de su terminal (T1 o T2), con un cartel con su nombre." },
         { q: "¿Qué pasa si mi vuelo se retrasa?", a: "Seguimos su vuelo en tiempo real y el conductor adapta la recogida. Además, tiene 60 minutos de espera gratuita desde la llegada real del vuelo." },
         { q: "¿Puedo pedir sillas para niños?", a: "Sí. Selecciónelas en el formulario de reserva indicando cuántas necesita." },
-        { q: "¿Cuánto cuesta el traslado del aeropuerto al centro?", a: "Depende del vehículo y del destino. Introduzca la recogida y el destino en el formulario y verá el precio antes de reservar. Precio orientativo: desde 35 € en categoría Economy." },
+        { q: "¿Cuánto cuesta el traslado del aeropuerto al centro?", a: "Depende del vehículo y del destino. Introduzca la recogida y el destino en el formulario y verá el precio antes de reservar. Precio orientativo: desde 42 € en categoría Economy." },
       ],
     },
     en: {
@@ -74,7 +74,7 @@ export const landings = [
         { q: "Where will the driver meet me at the airport?", a: "In the arrivals hall of your terminal (T1 or T2), holding a sign with your name." },
         { q: "What if my flight is delayed?", a: "We track your flight in real time and the driver adjusts the pickup. You also get 60 minutes of free waiting time from the actual arrival of your flight." },
         { q: "Can I request child seats?", a: "Yes. Select them in the booking form and tell us how many you need." },
-        { q: "How much is a transfer from the airport to the city centre?", a: "It depends on the vehicle and destination. Enter your pickup and destination in the booking form to see the price before you book. Guide price: from €35 in our Economy category." },
+        { q: "How much is a transfer from the airport to the city centre?", a: "It depends on the vehicle and destination. Enter your pickup and destination in the booking form to see the price before you book. Guide price: from €42 in our Economy category." },
       ],
     },
   },

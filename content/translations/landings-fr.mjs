@@ -51,7 +51,7 @@ export const pages = {
       { q: "Où le chauffeur m'attend-il à l'aéroport ?", a: "Dans le hall des arrivées de votre terminal (T1 ou T2), avec une pancarte à votre nom." },
       { q: "Que se passe-t-il si mon vol est retardé ?", a: "Nous suivons votre vol en temps réel et le chauffeur adapte la prise en charge. Vous bénéficiez en outre de 60 minutes d'attente gratuite à partir de l'arrivée réelle du vol." },
       { q: "Puis-je demander des sièges enfant ?", a: "Oui. Sélectionnez-les dans le formulaire de réservation en indiquant le nombre souhaité." },
-      { q: "Combien coûte le transfert de l'aéroport au centre-ville ?", a: "Cela dépend du véhicule et de la destination. Saisissez le lieu de prise en charge et la destination dans le formulaire pour voir le prix avant de réserver. Prix indicatif : à partir de 35 € en catégorie Economy." },
+      { q: "Combien coûte le transfert de l'aéroport au centre-ville ?", a: "Cela dépend du véhicule et de la destination. Saisissez le lieu de prise en charge et la destination dans le formulaire pour voir le prix avant de réserver. Prix indicatif : à partir de 42 € en catégorie Economy." },
     ],
   },
 

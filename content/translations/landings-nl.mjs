@@ -40,7 +40,7 @@ export const pages = {
       { q: "Waar wacht de chauffeur op mij op de luchthaven?", a: "In de aankomsthal van uw terminal (T1 of T2), met een bord met uw naam." },
       { q: "Wat gebeurt er als mijn vlucht vertraging heeft?", a: "Wij volgen uw vlucht in realtime en de chauffeur past het ophaalmoment aan. Bovendien hebt u 60 minuten gratis wachttijd vanaf de werkelijke landing van uw vlucht." },
       { q: "Kan ik kinderzitjes aanvragen?", a: "Ja. Selecteer ze in het reserveringsformulier en geef aan hoeveel u er nodig hebt." },
-      { q: "Wat kost een transfer van de luchthaven naar het centrum?", a: "Dat hangt af van het voertuig en de bestemming. Vul in het formulier uw ophaaladres en bestemming in en u ziet de prijs voordat u reserveert. Richtprijs: vanaf € 35 in de categorie Economy." },
+      { q: "Wat kost een transfer van de luchthaven naar het centrum?", a: "Dat hangt af van het voertuig en de bestemming. Vul in het formulier uw ophaaladres en bestemming in en u ziet de prijs voordat u reserveert. Richtprijs: vanaf € 42 in de categorie Economy." },
     ],
   },
 
