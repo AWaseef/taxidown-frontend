@@ -1,9 +1,11 @@
 // components/Footer.js
 import Link from 'next/link'
-import { CONTACT_EMAIL } from '@/lib/seo'
+import { CONTACT_EMAIL, CONTACT_PHONE } from '@/lib/seo'
+import { readyLandings } from '@/lib/landings'
 
 export default function Footer({ lang, dict }) {
   const name = process.env.NEXT_PUBLIC_NAME
+  const barcelona = readyLandings(lang)
   return (
     <footer className="bg-black text-white px-8 py-12 md:h-120 flex flex-col justify-end gap-20">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 md:gap-12 gap-5">
@@ -20,8 +22,23 @@ export default function Footer({ lang, dict }) {
                 <Link href={`/${lang}/terms`} className='text-yellow-1000 md:text-[16px] text-[15px] hover:text-yellow-600 hover:scale-105 text-gray-300'>{dict.terms}</Link> 
             </nav>
 
+            {barcelona.length > 0 && (
+              <nav className='flex flex-col md:text-[27px] text-[20px] font-semibold text-center text-white'>
+                Barcelona
+                {barcelona.map((p) => (
+                  <Link key={p.id} href={`/${lang}/${p.slug[lang]}`} className='md:text-[16px] text-[15px] hover:text-yellow-600 text-gray-300'>{p[lang].h1}</Link>
+                ))}
+              </nav>
+            )}
+
             <div className="flex flex-col md:text-[27px] text-[20px] font-semibold text-center">
             {dict.contact}
+            <a
+              href={`tel:${CONTACT_PHONE.replace(/\s/g, '')}`}
+              className="text-gray-300 md:text-[16px] text-[15px] hover:text-yellow-600 hover:scale-105 transition-all duration-200"
+            >
+              {CONTACT_PHONE}
+            </a>
             <a
               href={`mailto:${CONTACT_EMAIL}`}
               className="text-gray-300 md:text-[16px] text-[15px] hover:text-yellow-600 hover:scale-105 transition-all duration-200"

@@ -53,7 +53,12 @@ export default function LanguageSwitcher() {
 
     let newPath
 
-    if (languages.some((lang) => lang.code === currentPathLocale)) {
+    // Pages with translated slugs declare their equivalent URL as <link rel="alternate" hreflang>.
+    const alternate = document.querySelector(`link[rel="alternate"][hreflang="${newLocale}"]`)
+
+    if (alternate) {
+      newPath = new URL(alternate.href).pathname
+    } else if (languages.some((lang) => lang.code === currentPathLocale)) {
       pathSegments[0] = newLocale
       newPath = "/" + pathSegments.join("/")
     } else {

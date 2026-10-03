@@ -5,7 +5,8 @@ import { getDictionary } from '../dictionaries'
 import OurServices from './ourServices'
 import DriverProfessionals from './drivers'
 import PickupContainer from './pickupContainer'
-import { CONTACT_EMAIL, SITE_NAME, SITE_URL, localeUrl } from '@/lib/seo'
+import { CONTACT_EMAIL, CONTACT_PHONE, SITE_NAME, SITE_URL, localeUrl } from '@/lib/seo'
+import BarcelonaHub from './barcelonaHub'
 
 function structuredData(lang, dict) {
   return {
@@ -17,6 +18,7 @@ function structuredData(lang, dict) {
         name: SITE_NAME,
         url: SITE_URL,
         email: CONTACT_EMAIL,
+        telephone: CONTACT_PHONE,
       },
       {
         "@type": "WebSite",
@@ -54,6 +56,7 @@ export default async function HomePage({params}) {
         <div id="ourservices">
             <OurServices lang={lang} />
         </div>
+        <BarcelonaHub lang={lang} />
         <GetFleets title={dict.home.ourFleet} />
         <div className='flex flex-col gap-13 justify-center items-center py-20 bg-[#f8f8f8]'>
             <div className="text-center mb-[-15px]">
