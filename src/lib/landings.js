@@ -8,7 +8,7 @@
 //  - Espera gratuita: 60 min aeropuerto (desde llegada real del vuelo), 30 min puerto, 15 min hoteles/direcciones.
 //  - Seguimiento de vuelo, recogida con cartel con el nombre, sillas infantiles bajo petición,
 //    servicio por trayecto y por horas, facturas disponibles.
-//  - Moll Adossat: terminales A, B, C, D y E (Helix), Palacruceros y terminal de MSC; terminales WTC en el Moll de Barcelona.
+//  - Moll Adossat: terminales A, B, C, D (Palacruceros), E (Helix) y MSC; terminal WTC en el Moll de Barcelona (el puerto concentra los cruceros en el Moll Adossat).
 //  - Circuit de Barcelona-Catalunya: Montmeló, ~30 km al noreste; accesos C-17 / AP-7; tren R2 Nord + lanzadera.
 //  - Fira Gran Via (L'Hospitalet de Llobregat) y Fira Montjuïc (plaza d'Espanya); MWC se celebra en Fira Gran Via;
 //    no hay transporte público directo del aeropuerto a Fira Gran Via.
@@ -104,8 +104,8 @@ export const landings = [
         { title: "Espacio para el equipaje", text: "Vans XL y minibuses para familias y grupos con maletas grandes de crucero." },
       ],
       sections: [
-        { h2: "Terminales de cruceros del Moll Adossat", text: "La mayoría de los grandes cruceros atracan en el Moll Adossat, al pie de Montjuïc (Moll Adossat, 1 – 08039 Barcelona). Allí se encuentran las terminales A, B, C, D y E (Helix), así como Palacruceros y la terminal de MSC. Indique su naviera o su terminal al reservar y el conductor le llevará a la entrada correcta." },
-        { h2: "Terminales del World Trade Center", text: "Algunos barcos atracan en las terminales del World Trade Center, en el Moll de Barcelona, junto al final de la Rambla. También cubrimos estas terminales, tanto para el embarque como para el regreso al aeropuerto o a su hotel después del crucero." },
+        { h2: "Terminales de cruceros del Moll Adossat", text: "La mayoría de los grandes cruceros atracan en el Moll Adossat, al pie de Montjuïc (Moll Adossat, 1 – 08039 Barcelona). Allí se encuentran las terminales A, B y C, la terminal D (Palacruceros), la terminal E (Helix) y la terminal de MSC. Indique su naviera o su terminal al reservar y el conductor le llevará a la entrada correcta." },
+        { h2: "Terminal del World Trade Center", text: "Algunos barcos, normalmente más pequeños, atracan en la terminal del World Trade Center, en el Moll de Barcelona, junto al final de la Rambla. El puerto está concentrando los cruceros en el Moll Adossat, así que confirme siempre su terminal con la naviera. Cubrimos todas las terminales, tanto para el embarque como para el regreso al aeropuerto o a su hotel después del crucero." },
         { h2: "Mejor que la lanzadera para viajar con equipaje", text: "El bus lanzadera del puerto solo llega hasta el monumento a Colón, y desde allí tendría que seguir con todas sus maletas. Con un traslado privado va puerta a puerta, sin esperas ni transbordos, aunque el barco llegue temprano por la mañana." },
       ],
       faq: [
@@ -127,8 +127,8 @@ export const landings = [
         { title: "Room for your luggage", text: "XL vans and minibuses for families and groups with large cruise suitcases." },
       ],
       sections: [
-        { h2: "Moll Adossat cruise terminals", text: "Most large cruise ships berth at Moll Adossat, at the foot of Montjuïc (Moll Adossat, 1 – 08039 Barcelona). This is where terminals A, B, C, D and E (Helix) are located, as well as Palacruceros and the MSC terminal. Tell us your cruise line or terminal when booking and your driver will take you to the right entrance." },
-        { h2: "World Trade Center terminals", text: "Some ships berth at the World Trade Center terminals on Moll de Barcelona, at the bottom of La Rambla. We cover these terminals too, both for embarkation and for your return to the airport or hotel after the cruise." },
+        { h2: "Moll Adossat cruise terminals", text: "Most large cruise ships berth at Moll Adossat, at the foot of Montjuïc (Moll Adossat, 1 – 08039 Barcelona). This is where terminals A, B and C, Terminal D (Palacruceros), Terminal E (Helix) and the MSC terminal are located. Tell us your cruise line or terminal when booking and your driver will take you to the right entrance." },
+        { h2: "World Trade Center terminal", text: "Some ships, usually smaller ones, berth at the World Trade Center terminal on Moll de Barcelona, at the bottom of La Rambla. The port is concentrating cruise traffic at Moll Adossat, so always confirm your terminal with your cruise line. We cover every terminal, both for embarkation and for your return to the airport or hotel after the cruise." },
         { h2: "Better than the shuttle when you have luggage", text: "The port shuttle bus only goes as far as the Columbus Monument, and from there you would have to continue with all your suitcases. A private transfer takes you door to door, with no waiting or changes, even when your ship arrives early in the morning." },
       ],
       faq: [
