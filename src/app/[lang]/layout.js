@@ -1,9 +1,12 @@
 import { notFound } from "next/navigation";
+import { Roboto } from "next/font/google";
 import Consent from "./consent";
 import { getDictionary } from "./dictionaries";
 import { LOCALES, SITE_NAME, SITE_URL } from "@/lib/seo";
 import "../styling/globals.css";
 import "./styling/globals.css";
+
+const roboto = Roboto({ subsets: ["latin"], display: "swap", variable: "--font-roboto" });
 
 export async function generateStaticParams() {
   return LOCALES.map((lang) => ({ lang }));
@@ -31,19 +34,10 @@ export default async function Layout({ children, params }) {
   const dict = await getDictionary(lang);
 
   return (
-    <html lang={lang} className="h-lvh">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {/* eslint-disable-next-line @next/next/no-page-custom-font -- this is the root layout */}
-        <link
-          href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang={lang} className={`h-lvh ${roboto.variable}`}>
       <body className="w-[100vw] h-lvh overflow-x-hidden " wotdisconnected="true" suppressHydrationWarning>
         <section className="w-[100vw] h-lvh overflow-x-hidden " >
-          <Consent text={dict.consent.text} accept={dict.consent.accept} />
+          <Consent text={dict.consent.text} accept={dict.consent.accept} reject={dict.consent.reject} more={dict.consent.more} lang={lang} />
           {children}
         </section>
       </body>
