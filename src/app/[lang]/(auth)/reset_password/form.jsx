@@ -52,7 +52,7 @@ export default function ResetClient({ dict, lang }) {
   };
 
   return (
-    <form onSubmit={onSubmit} className="flex items-center justify-center h-screen bg-gray-100 bg-[url(/image.png)] relative">
+    <form onSubmit={onSubmit} className="flex items-center justify-center h-screen bg-gray-100 bg-[url(/image.webp)] relative">
       <div className="absolute inset-0 bg-black/40 z-0"></div>
       <div className="z-10 bg-white shadow-lg rounded-xl p-8 text-center max-w-md w-max py-13 pb-10 px-15 flex justify-center flex-col items-center gap-2">
         <h1 className="text-3xl font-bold mb-7">{dict.resetPassword.title}</h1>

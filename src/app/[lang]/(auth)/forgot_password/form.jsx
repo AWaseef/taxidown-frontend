@@ -33,7 +33,7 @@ export default function ForgotClient({ dict, lang }) {
   return (
     <form
       onSubmit={onsubmit}
-      className="flex items-center justify-center h-screen bg-gray-100 bg-[url(/image.png)] relative"
+      className="flex items-center justify-center h-screen bg-gray-100 bg-[url(/image.webp)] relative"
     >
       <div className="absolute inset-0 bg-black/40 z-0"></div>
 

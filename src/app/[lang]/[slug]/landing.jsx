@@ -85,7 +85,7 @@ export default function LandingPage({ page, lang, dict }) {
           <h1 className="text-[34px] md:text-[52px] leading-tight font-bold max-w-3xl truculenta">{content.h1}</h1>
           <p className="mt-5 text-lg md:text-xl text-gray-200 max-w-2xl leading-relaxed">{content.intro}</p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href={bookingHref(page, lang)} className="px-6 py-3 bg-orange-500 border-2 border-orange-500 text-white rounded-3xl font-semibold hover:bg-white hover:text-orange-600 transition">
+            <Link prefetch={false} href={bookingHref(page, lang)} className="px-6 py-3 bg-orange-500 border-2 border-orange-500 text-white rounded-3xl font-semibold hover:bg-white hover:text-orange-600 transition">
               {t.bookNow}
             </Link>
             <a href={phoneHref} className="px-6 py-3 border-2 border-white/80 rounded-3xl font-semibold inline-flex items-center gap-2 hover:bg-white hover:text-black transition">
@@ -159,7 +159,7 @@ export default function LandingPage({ page, lang, dict }) {
             <h2 className="text-3xl md:text-4xl font-bold">{t.ctaTitle}</h2>
             <p className="mt-3 text-gray-300 text-lg">{t.ctaText}</p>
             <div className="mt-7 flex flex-wrap justify-center gap-3">
-              <Link href={bookingHref(page, lang)} className="px-6 py-3 bg-orange-500 border-2 border-orange-500 rounded-3xl font-semibold hover:bg-white hover:text-orange-600 transition">
+              <Link prefetch={false} href={bookingHref(page, lang)} className="px-6 py-3 bg-orange-500 border-2 border-orange-500 rounded-3xl font-semibold hover:bg-white hover:text-orange-600 transition">
                 {t.bookNow}
               </Link>
               <a href={phoneHref} className="px-6 py-3 border-2 border-white/80 rounded-3xl font-semibold hover:bg-white hover:text-black transition">

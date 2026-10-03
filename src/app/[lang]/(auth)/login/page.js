@@ -24,7 +24,7 @@ export default async function LoginPage({params}) {
                 {dict.auth.createAccount}</Link>
             </div>
         </div>
-        <div className='md:relative lg:w-[67vw] md:w-[60vw] md:h-[100vh] md:bg-[url(/image.png)] md:bg-cover md:flex hidden '>
+        <div className='md:relative lg:w-[67vw] md:w-[60vw] md:h-[100vh] md:bg-[url(/image.webp)] md:bg-cover md:flex hidden '>
             <div className="absolute inset-0 bg-black opacity-20"></div>
         </div>
     </div>

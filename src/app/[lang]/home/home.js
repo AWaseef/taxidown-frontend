@@ -1,3 +1,4 @@
+import { preload } from 'react-dom'
 import Navbar from './nav'
 import Footer from './footer'
 import GetFleets from './getfleets'
@@ -45,6 +46,7 @@ function structuredData(lang, dict) {
 export default async function HomePage({params}) {
   const {lang} = await params;
   const dict = await getDictionary(lang); // en
+  preload('/home2.webp', { as: 'image', fetchPriority: 'high' })
   return (
     <div className=' w-[100vw]'>
         <script
@@ -66,20 +68,20 @@ export default async function HomePage({params}) {
                 </p>
             </div>
             <DriverProfessionals 
-            path={"/booking.png"} 
+            path={"/booking.webp"} 
             alt={dict.home.coverageAlt}
             title= {dict.home.coverageTitle} 
             content={dict.home.coverageText}
             />
             <DriverProfessionals 
             flip={"md:flex-row-reverse lg:pl-20 gap:15"}
-            path={"/driver.png"} 
+            path={"/driver.webp"} 
             alt={dict.home.driversAlt}
             title= {dict.home.driversTitle} 
             content={dict.home.driversText}
             />
             <DriverProfessionals 
-            path={"/car2.png"} 
+            path={"/car2.webp"} 
             alt={dict.home.fleetAlt}
             title= {dict.home.fleetTitle} 
             content={dict.home.fleetText}

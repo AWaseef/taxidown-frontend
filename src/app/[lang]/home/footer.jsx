@@ -18,7 +18,7 @@ export default function Footer({ lang, dict }) {
             <nav className='flex flex-col md:text-[27px] text-[20px] font-semibold text-center text-white'>
                 {dict.navigation}
                 <Link href={`/${lang}`} className='text-yellow-1000 md:text-[16px] text-[15px] hover:text-yellow-600 hover:scale-105 text-gray-300'>{dict.home}</Link>   
-                <Link href={`/${lang}/pickup`} className='text-yellow-1000 md:text-[16px] text-[15px] hover:text-yellow-600 hover:scale-105 text-gray-300'>{dict.book}</Link>        
+                <Link prefetch={false} href={`/${lang}/pickup`} className='text-yellow-1000 md:text-[16px] text-[15px] hover:text-yellow-600 hover:scale-105 text-gray-300'>{dict.book}</Link>        
                 <Link href={`/${lang}/terms`} className='text-yellow-1000 md:text-[16px] text-[15px] hover:text-yellow-600 hover:scale-105 text-gray-300'>{dict.terms}</Link> 
             </nav>
 

@@ -215,7 +215,7 @@ export default function Pick({ heroTitle, pick,  oneWay, perHour, pickupLocation
                     transition-all duration-200 ease-in-out 
                     peer-focus:text-sm peer-focus:top-0 peer-focus:left-[10px] peer-focus:text-black peer-focus:bg-[#fcfcfa] peer-focus:rounded-t-sm peer-focus:px-1
                     peer-valid:text-sm peer-valid:top-0 peer-valid:left-[10px] peer-valid:text-black peer-valid:bg-[#fcfcfa] peer-valid:rounded-t-sm peer-valid:px-1">{pickupLocation}*</label>
-                <Link href={`/${lang}/pickup?pickup=${pickupQuery}&destination=${destinationQuery}&oneway=${isOneWay}&pick=true`}>
+                <Link prefetch={false} href={`/${lang}/pickup?pickup=${pickupQuery}&destination=${destinationQuery}&oneway=${isOneWay}&pick=true`}>
                     <button type="button" className='show button'>
                         <MapPinIcon className="h-5 w-5 text-red-500 mr-2" />
                     </button>
@@ -269,7 +269,7 @@ export default function Pick({ heroTitle, pick,  oneWay, perHour, pickupLocation
                 peer-focus:text-sm peer-focus:top-0 peer-focus:left-[10px] peer-focus:text-black peer-focus:bg-[#fcfcfa] peer-focus:rounded-t-sm peer-focus:px-1
                 peer-valid:text-sm peer-valid:top-0 peer-valid:left-[10px] peer-valid:text-black peer-valid:bg-[#fcfcfa] peer-valid:rounded-t-sm peer-valid:px-1">
                     {destination}*</label>
-                <Link href={`/${lang}/pickup?pickup=${pickupQuery}&destination=${destinationQuery}&oneway=${isOneWay}&dest=true`}>
+                <Link prefetch={false} href={`/${lang}/pickup?pickup=${pickupQuery}&destination=${destinationQuery}&oneway=${isOneWay}&dest=true`}>
                     <button type="button" className='show button'>
                         <MapPinIcon className="h-5 w-5 text-red-500 mr-2" />
                     </button>

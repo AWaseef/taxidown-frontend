@@ -28,6 +28,8 @@ export default function DriverProfessionals({ path, title, content, flip, alt })
         <img
         src={path}
         alt={alt}
+        loading="lazy"
+        decoding="async"
         className="rounded-2xl shadow-lg w-full h-[280px] sm:h-[340px] lg:h-[380px] object-cover"
         />
 
