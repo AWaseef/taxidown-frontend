@@ -40,7 +40,7 @@ export const pages = {
       { q: "Onde o motorista me espera no aeroporto?", a: "No saguão de desembarque do seu terminal (T1 ou T2), com uma placa com seu nome." },
       { q: "E se o meu voo atrasar?", a: "Acompanhamos seu voo em tempo real e o motorista ajusta o horário de busca. Além disso, você tem 60 minutos de espera grátis a partir da chegada real do voo." },
       { q: "Posso pedir cadeirinhas para crianças?", a: "Sim. Selecione-as no formulário de reserva e indique quantas você precisa." },
-      { q: "Quanto custa o transfer do aeroporto até o centro?", a: "Depende do veículo e do destino. Informe o local de partida e o destino no formulário e você verá o preço antes de reservar. Preço de referência: a partir de € 35 na categoria Economy." },
+      { q: "Quanto custa o transfer do aeroporto até o centro?", a: "Depende do veículo e do destino. Informe o local de partida e o destino no formulário e você verá o preço antes de reservar. Preço de referência: a partir de € 42 na categoria Economy." },
     ],
   },
 

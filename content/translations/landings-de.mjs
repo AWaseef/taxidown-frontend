@@ -41,7 +41,7 @@ export const pages = {
       { q: "Wo erwartet mich der Fahrer am Flughafen?", a: "Im Ankunftsbereich Ihres Terminals (T1 oder T2), mit einem Schild mit Ihrem Namen." },
       { q: "Was passiert, wenn mein Flug Verspätung hat?", a: "Wir verfolgen Ihren Flug in Echtzeit, und der Fahrer passt die Abholung an. Außerdem haben Sie 60 Minuten kostenlose Wartezeit ab der tatsächlichen Landung Ihres Fluges." },
       { q: "Kann ich Kindersitze bestellen?", a: "Ja. Wählen Sie diese im Buchungsformular aus und geben Sie an, wie viele Sie benötigen." },
-      { q: "Was kostet der Transfer vom Flughafen ins Zentrum?", a: "Das hängt vom Fahrzeug und vom Ziel ab. Geben Sie Abholort und Ziel im Buchungsformular ein, dann sehen Sie den Preis vor der Buchung. Richtpreis: ab 35 € in der Kategorie Economy." },
+      { q: "Was kostet der Transfer vom Flughafen ins Zentrum?", a: "Das hängt vom Fahrzeug und vom Ziel ab. Geben Sie Abholort und Ziel im Buchungsformular ein, dann sehen Sie den Preis vor der Buchung. Richtpreis: ab 42 € in der Kategorie Economy." },
     ],
   },
 

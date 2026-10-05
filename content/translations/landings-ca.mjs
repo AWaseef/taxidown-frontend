@@ -52,7 +52,7 @@ export const pages = {
       { q: "On m'espera el conductor a l'aeroport?", a: "A la zona d'arribades de la vostra terminal (T1 o T2), amb un cartell amb el vostre nom." },
       { q: "Què passa si el meu vol es retarda?", a: "Seguim el vostre vol en temps real i el conductor adapta la recollida. A més, teniu 60 minuts d'espera gratuïta des de l'arribada real del vol." },
       { q: "Puc demanar cadiretes per a infants?", a: "Sí. Seleccioneu-les al formulari de reserva i indiqueu quantes en necessiteu." },
-      { q: "Quant costa el trasllat de l'aeroport al centre?", a: "Depèn del vehicle i de la destinació. Introduïu la recollida i la destinació al formulari i veureu el preu abans de reservar. Preu orientatiu: des de 35 € en la categoria Economy." },
+      { q: "Quant costa el trasllat de l'aeroport al centre?", a: "Depèn del vehicle i de la destinació. Introduïu la recollida i la destinació al formulari i veureu el preu abans de reservar. Preu orientatiu: des de 42 € en la categoria Economy." },
     ],
   },
 

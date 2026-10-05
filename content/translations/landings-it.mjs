@@ -41,7 +41,7 @@ export const pages = {
       { q: "Dove mi aspetta l'autista in aeroporto?", a: "Nell'area arrivi del suo terminal (T1 o T2), con un cartello con il suo nome." },
       { q: "Cosa succede se il mio volo è in ritardo?", a: "Monitoriamo il suo volo in tempo reale e l'autista adegua l'orario di presa. Inoltre, ha 60 minuti di attesa gratuita dall'arrivo effettivo del volo." },
       { q: "Posso richiedere seggiolini per bambini?", a: "Sì. Li selezioni nel modulo di prenotazione indicando quanti gliene servono." },
-      { q: "Quanto costa il transfer dall'aeroporto al centro?", a: "Dipende dal veicolo e dalla destinazione. Inserisca partenza e destinazione nel modulo e vedrà il prezzo prima di prenotare. Prezzo indicativo: a partire da 35 € in categoria Economy." },
+      { q: "Quanto costa il transfer dall'aeroporto al centro?", a: "Dipende dal veicolo e dalla destinazione. Inserisca partenza e destinazione nel modulo e vedrà il prezzo prima di prenotare. Prezzo indicativo: a partire da 42 € in categoria Economy." },
     ],
   },
 
